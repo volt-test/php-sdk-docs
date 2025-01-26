@@ -17,8 +17,8 @@ Here's a minimal example to get started:
 
 ```php title="example.php"
 <?php
-require 'vendor/autoload.php';
 use VoltTest\VoltTest;
+
 // Create a new instance of the VoltTest class
 $voltTest = new VoltTest('Name of Your test');
 // Create a new scenario
