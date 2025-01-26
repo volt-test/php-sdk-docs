@@ -12,7 +12,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Quick Setup for Performance Testing',
-    Svg: require('@site/static/img/image-4.svg').default,
+    Svg: require('@site/static/img/rocket.svg').default,
     description: (
       <>
           Volt-Test PHP SDK is designed to integrate seamlessly with your application,
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Streamline Your Test Scenarios',
-    Svg: require('@site/static/img/image-5.svg').default,
+    Svg: require('@site/static/img/gears.svg').default,
     description: (
       <>
         Focus on building meaningful test scenarios while the SDK handles test orchestration and metrics reporting, saving you time and effort.
@@ -31,7 +31,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Seamlessly Integrated with Volt-Test Engine',
-    Svg: require('@site/static/img/image-6.svg').default,
+    Svg: require('@site/static/img/go.svg').default,
     description: (
       <>
           Volt-Test's core engine is built with Golang, delivering high performance, scalability, and accuracy for all your load-testing needs.
