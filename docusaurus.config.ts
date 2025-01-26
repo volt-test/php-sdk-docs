@@ -70,6 +70,13 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        sitemap: {
+            changefreq: 'weekly',
+            priority: 0.5,
+            // trailingSlash: false,
+          filename: 'sitemap.xml',
+          ignorePatterns: ['/tags/**','/blog/**','/markdown-page'],
+        }
       } satisfies Preset.Options,
     ],
   ],

@@ -1,12 +1,20 @@
----
-slug: first-blog-post
-title: First Blog Post
-authors: [slorber, yangshun]
-tags: [hola, docusaurus]
----
+[//]: # (---)
 
-Lorem ipsum dolor sit amet...
+[//]: # (slug: first-blog-post)
 
-<!-- truncate -->
+[//]: # (title: First Blog Post)
 
-...consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet
+[//]: # (authors: [slorber, yangshun])
+
+[//]: # (tags: [hola, docusaurus])
+
+[//]: # (---)
+
+[//]: # ()
+[//]: # (Lorem ipsum dolor sit amet...)
+
+[//]: # ()
+[//]: # (<!-- truncate -->)
+
+[//]: # ()
+[//]: # (...consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet)

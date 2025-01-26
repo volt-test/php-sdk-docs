@@ -1,29 +1,46 @@
----
-slug: welcome
-title: Welcome
-authors: [slorber, yangshun]
-tags: [facebook, hello, docusaurus]
----
+[//]: # (---)
 
-[Docusaurus blogging features](https://docusaurus.io/docs/blog) are powered by the [blog plugin](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog).
+[//]: # (slug: welcome)
 
-Here are a few tips you might find useful.
+[//]: # (title: Welcome)
 
-<!-- truncate -->
+[//]: # (authors: [slorber, yangshun])
 
-Simply add Markdown files (or folders) to the `blog` directory.
+[//]: # (tags: [facebook, hello, docusaurus])
 
-Regular blog authors can be added to `authors.yml`.
+[//]: # (---)
 
-The blog post date can be extracted from filenames, such as:
+[//]: # ()
+[//]: # ([Docusaurus blogging features]&#40;https://docusaurus.io/docs/blog&#41; are powered by the [blog plugin]&#40;https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog&#41;.)
 
-- `2019-05-30-welcome.md`
-- `2019-05-30-welcome/index.md`
+[//]: # ()
+[//]: # (Here are a few tips you might find useful.)
 
-A blog post folder can be convenient to co-locate blog post images:
+[//]: # ()
+[//]: # (<!-- truncate -->)
 
-![Docusaurus Plushie](./docusaurus-plushie-banner.jpeg)
+[//]: # ()
+[//]: # (Simply add Markdown files &#40;or folders&#41; to the `blog` directory.)
 
-The blog supports tags as well!
+[//]: # ()
+[//]: # (Regular blog authors can be added to `authors.yml`.)
 
-**And if you don't want a blog**: just delete this directory, and use `blog: false` in your Docusaurus config.
+[//]: # ()
+[//]: # (The blog post date can be extracted from filenames, such as:)
+
+[//]: # ()
+[//]: # (- `2019-05-30-welcome.md`)
+
+[//]: # (- `2019-05-30-welcome/index.md`)
+
+[//]: # ()
+[//]: # (A blog post folder can be convenient to co-locate blog post images:)
+
+[//]: # ()
+[//]: # (![Docusaurus Plushie]&#40;./docusaurus-plushie-banner.jpeg&#41;)
+
+[//]: # ()
+[//]: # (The blog supports tags as well!)
+
+[//]: # ()
+[//]: # (**And if you don't want a blog**: just delete this directory, and use `blog: false` in your Docusaurus config.)
