@@ -28,7 +28,7 @@ $scenario->step('Register')
     ->get('https://google.com')
     ->header('Content-Type', 'text/html');
 // Run the test
-$result = $voltTest->run();
+$result = $voltTest->run(true);
 // Echo the result
 echo $result->getRawOutput();
 ```

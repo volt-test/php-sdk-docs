@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-id: JSON API Examples
+id: JSON-API-Examples
 title: JSON API Examples
 ---
 
