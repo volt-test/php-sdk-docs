@@ -85,17 +85,21 @@ $scenario->post('https://api.example.com/login', '{"name": "John"}')
 ->header('Content-Type', 'application/json')
 ->extractFromJson('token', 'meta.token');
 ```
-Here, `token` is the variable name, and `meta.token` is the JSON path to extract the value from the response.
-So, the extracted value will be stored in the `token` variable and can be used in subsequent steps.
+Support for array Indexing in JSON path
+
+You can extract data from JSON arrays using the array index.
+```php
+$scenario->post('https://api.example.com/login', '{"name": "John"}')
+    ->header('Content-Type', 'application/json')
+    ->extractFromJson('email', 'data[0].users[0].email');
+```
+Here, email will store the value of attribute from the first object in the data array.
+
 Example usage in subsequent steps:
 ```php
-$scenario->post('https://api.example.com/users', '{"name": "John"}')
-    ->header('Content-Type', 'application/json')
+$scenario->get('https://api.example.com/profile')
     ->header('Authorization', 'Bearer ${token}');
 ```
-:::info
-The extracted value can be used in subsequent steps by referencing the variable name with `${variableName}`.
-:::
 
 ### Headers
 Extract data from response headers:
