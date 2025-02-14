@@ -45,6 +45,10 @@ const config: Config = {
     [
       'classic',
       {
+        gtag: {
+          trackingID: process.env.GOOGLE_ANALYTICS_ID, // Replace with your Google Analytics tracking ID
+          anonymizeIP: true, // Optional: Enable IP anonymization for GDPR compliance
+        },
         docs: {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
