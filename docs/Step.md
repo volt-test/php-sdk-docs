@@ -101,6 +101,35 @@ $scenario->get('https://api.example.com/profile')
     ->header('Authorization', 'Bearer ${token}');
 ```
 
+### HTML Response
+Extract data from an HTML response:
+```php
+$scenario->get('https://example.com/login')
+    ->extractFromHtml('csrf', 'input[name="_token"]', 'value');
+```
+the above code will extract the value of the input field with the name `_token` and store it in the `csrf` variable.
+
+You can also specify the form action URL to extract data from a specific form:
+```php
+$scenario->get('https://example.com/login')
+    ->extractFromHtml('csrf', 'form[action="http://localhost/login"] input[name="_token"]', 'value');
+```
+Here, the `csrf` variable will store the value of the input field with the name `_token` from the form with the action URL `http://localhost/login`.
+
+```php
+$scenario->get('https://example.com/login')
+    ->extractFromHtml('csrf', '.login-form input[name='_csrf']', 'value');
+```
+Here, the `csrf` variable will store the value of the input field with the name `_csrf` from the form with the class `login-form`.
+
+
+```php
+$scenario->get('https://example.com/login')
+    ->extractFromHtml('csrf', 'div#test', 'data-test');
+```
+Here, the `csrf` variable will store the value of the data attribute `data-test` from the div with the id `test`.
+
+
 ### Headers
 Extract data from response headers:
 ```php
