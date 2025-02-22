@@ -32,7 +32,7 @@ $scenario = $test->scenario('Login Form Test');
 // Get login page and extract CSRF token
 $scenario->step('Get Login Page')
     ->get('https://example.com/login')
-    ->extractFromRegex('csrf_token', 'name="_token" value="(.+?)"')
+    ->extractFromHtml('csrf_token', 'input[name="_token"]', 'value')
     ->validateStatus('page_load', 200);
 
 // Submit login form
@@ -59,7 +59,7 @@ $scenario = $test->scenario('Registration Form');
 // Load registration page
 $scenario->step('Load Register Page')
     ->get('https://example.com/register')
-    ->extractFromRegex('csrf_token', 'name="_token" value="(.+?)"')
+    ->extractFromHtml('csrf_token', 'input[name="_token"]', 'value')
     ->validateStatus('page_load', 200);
 
 // Submit registration with form data
@@ -94,13 +94,12 @@ $scenario = $test->scenario('Multi-Step Form');
 // Step 1: Personal Info
 $scenario->step('Personal Info')
     ->get('https://example.com/form/step1')
-    ->extractFromRegex('form_token', 'name="form_token" value="(.+?)"')
+    ->extractFromHtml('form_token', 'input[name="_token"]', 'value')
     ->validateStatus('step1_load', 200);
 
 $scenario->step('Submit Step 1')
-    ->post('https://example.com/form/step1')
+    ->post('https://example.com/form/step1',''form_token=${form_token}&name=${name}&email=${email}'')
     ->header('Content-Type', 'application/x-www-form-urlencoded')
-    ->setBody('form_token=${form_token}&name=${name}&email=${email}')
     ->validateStatus('step1_success', 302)
     ->extractFromCookie('session_id', 'session_id');
 
@@ -111,9 +110,8 @@ $scenario->step('Address Info')
     ->validateStatus('step2_load', 200);
 
 $scenario->step('Submit Step 2')
-    ->post('https://example.com/form/step2')
+    ->post('https://example.com/form/step2', 'address=${address}&city=${city}&country=${country}')
     ->header('Cookie', 'session_id=${session_id}')
-    ->setBody('address=${address}&city=${city}&country=${country}')
     ->validateStatus('step2_success', 302);
 
 // Run the test and get the result
