@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkphp_sdk_docs=self.webpackChunkphp_sdk_docs||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Introducing Volt-Test: Stress & Load Testing for PHP Developers","permalink":"/blog/introducing-volt-test-php-load-testing","unlisted":false,"date":"2025-02-26T00:00:00.000Z"}]}')}}]);
