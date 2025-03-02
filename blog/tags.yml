@@ -1,1 +1,19 @@
+stress-test:
+  label: "Stress Test"
+  description: "Articles related to stress testing applications."
+performance-testing:
+  label: "Performance Testing"
+  description: "Guides and tools for performance testing."
+php:
+  label: "PHP"
+  description: "Articles about PHP development."
+load-testing:
+  label: "Load Testing"
+  description: "Resources for testing application load performance."
+volt-test:
+  label: "Volt-Test"
+  description: "Guides and tutorials about Volt-Test."
 
+laravel:
+    label: "Laravel"
+    description: "Articles about Laravel development."
