@@ -47,7 +47,7 @@ A spike test simulates a rapid increase from 1,000 to 50,000 users within a minu
 <p>Endurance testing evaluates a system's performance over an extended period under normal expected loads.
 It detects memory leaks, slowdowns, and other long-term performance issues.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="example-3">Example<a href="https://php.volt-test.com/blog/performance-testing-types#example-3" class="hash-link" aria-label="Direct link to Example" title="Direct link to Example">​</a></h3>
-<p>A banking application undergoes soak testing by simulating
+<p>A banking application undergoes endurance testing by simulating
 <code>5,000 users performing transactions continuously over 24 hours</code> to ensure <code>there are no memory leaks</code> or <code>performance degradation</code>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="scalability-testing">Scalability Testing<a href="https://php.volt-test.com/blog/performance-testing-types#scalability-testing" class="hash-link" aria-label="Direct link to Scalability Testing" title="Direct link to Scalability Testing">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="definition-4">Definition<a href="https://php.volt-test.com/blog/performance-testing-types#definition-4" class="hash-link" aria-label="Direct link to Definition" title="Direct link to Definition">​</a></h3>
