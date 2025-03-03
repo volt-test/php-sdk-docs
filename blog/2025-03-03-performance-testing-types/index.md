@@ -50,7 +50,7 @@ Endurance testing evaluates a system's performance over an extended period under
 It detects memory leaks, slowdowns, and other long-term performance issues.
 
 ### Example
-A banking application undergoes soak testing by simulating
+A banking application undergoes endurance testing by simulating
 `5,000 users performing transactions continuously over 24 hours` to ensure `there are no memory leaks` or `performance degradation`.
 
 ## Scalability Testing
