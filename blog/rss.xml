@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
-        <title>VOLT-TEST PHP SDK Blog</title>
+        <title>VOLT TEST PHP SDK Blog</title>
         <link>https://php.volt-test.com/blog</link>
-        <description>VOLT-TEST PHP SDK Blog</description>
+        <description>VOLT TEST PHP SDK Blog</description>
         <lastBuildDate>Mon, 03 Mar 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
@@ -98,7 +98,7 @@ Whether you need to evaluate expected loads, extreme conditions, scalability, or
 <li>Analyze and optimize performance bottlenecks.</li>
 </ul>
 <p>By the end of this guide, you will be able to confidently run automated performance tests to ensure your Laravel app is scalable and resilient.</p>
-<p><img decoding="async" loading="lazy" alt="Stress Testing Laravel Applications with VoltTest" src="https://php.volt-test.com/assets/images/stress-test-php-e8449f1b6e72fa9e2080c1ceccbae621.png" width="2600" height="1482" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Stress Testing Laravel Applications with VoltTest" src="https://php.volt-test.com/assets/images/stress-testing-laravel-web-ui-9fba25ff85906a67db7e909ee80eeb7c.png" width="4800" height="2700" class="img_ev3q"></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="prerequisites">Prerequisites<a href="https://php.volt-test.com/blog/stress-testing-laravel-with-volt-test-web-ui#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites">​</a></h2>
 <p>Ensure you have the following:</p>
 <ul>
