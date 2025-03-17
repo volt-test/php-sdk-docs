@@ -6,7 +6,7 @@ title: "Stress Testing Laravel Applications with VoltTest (Web UI Flow)"
 description: "This tutorial walks you through setting up and executing stress tests on a Laravel application using the VoltTest PHP SDK. You will learn how to simulate real user interactions such as visiting the home page, registering a new user, and accessing the dashboard, ensuring your application can handle concurrent traffic efficiently."
 authors: [elwafa]
 
-image: "/img/stress-test-php.png"
+image: "/img/stress-testing-laravel-web-ui-og.png"
 
 tags: ["laravel", "performance-testing","load-testing", "volt-test", "stress-test"]
 
@@ -26,7 +26,7 @@ In this tutorial, we will explore how to perform stress testing on a Laravel app
 
 By the end of this guide, you will be able to confidently run automated performance tests to ensure your Laravel app is scalable and resilient.
 <!-- truncate -->
-![Stress Testing Laravel Applications with VoltTest](/img/stress-test-php.png)
+![Stress Testing Laravel Applications with VoltTest](/img/stress-testing-laravel-web-ui.png)
 ## Prerequisites
 
 Ensure you have the following:

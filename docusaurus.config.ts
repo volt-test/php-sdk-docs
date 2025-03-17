@@ -6,9 +6,9 @@ require('dotenv').config();
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'VOLT-TEST PHP SDK',
+  title: 'VOLT TEST PHP SDK',
   tagline: 'Write and run performance, load, and stress tests directly in PHP.',
-  favicon: 'img/fav.ico',
+  favicon: 'img/fav.png',
 
   // Set the production url of your site here
   url: 'https://php.volt-test.com',
@@ -87,24 +87,29 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/logo.png',
+    image: 'img/OG-PHP-SDK.png',
     navbar: {
-      title: 'Volt-Test PHP SDK',
+      title: 'PHP SDK',
       logo: {
-        alt: 'Volt-Test Logo',
-        src: 'img/logo.png',
+        alt: 'Volt Test',
+        src: 'img/Blue.png',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Documentations',
+          label: 'Docs',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/volt-test/php-sdk',
           label: 'GitHub',
+          position: 'right',
+        },
+        {
+          href: 'https://discord.gg/BvQD6bptaD',
+          label: 'Discord',
           position: 'right',
         },
       ],
@@ -156,7 +161,7 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.vsDark,
-      darkTheme: prismThemes.vsDark,
+      darkTheme: prismThemes.vsLight,
       additionalLanguages: ['php'],
     },
   } satisfies Preset.ThemeConfig,
