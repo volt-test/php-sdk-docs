@@ -1,7 +1,6 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-require('dotenv').config();
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -31,24 +30,12 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  plugins: [
-      [
-        '@docusaurus/plugin-google-analytics',
-        {
-          trackingID: process.env.GOOGLE_ANALYTICS_ID, // Replace with your Measurement ID
-          anonymizeIP: true, // Optional: Enable IP anonymization for GDPR compliance
-        },
-      ],
-      ],
+  plugins: [],
 
   presets: [
     [
       'classic',
       {
-        gtag: {
-          trackingID: process.env.GOOGLE_ANALYTICS_ID, // Replace with your Google Analytics tracking ID
-          anonymizeIP: true, // Optional: Enable IP anonymization for GDPR compliance
-        },
         docs: {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
@@ -112,6 +99,11 @@ const config: Config = {
           label: 'Discord',
           position: 'right',
         },
+        {
+          href: 'https://x.com/vt_developers',
+          label: 'X(Twitter)',
+          position: 'right',
+        }
       ],
     },
     footer: {
@@ -130,6 +122,10 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'X(Twitter)',
+              href: 'https://x.com/vt_developers',
+            },
+            {
               label: 'Github Discussions',
               href: 'https://github.com/volt-test/php-sdk/discussions',
             },
@@ -140,7 +136,7 @@ const config: Config = {
             {
               label: "Discord",
               href: "https://discord.gg/BvQD6bptaD",
-            }
+            },
           ],
         },
         {

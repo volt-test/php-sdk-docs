@@ -5,6 +5,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
+import CookieConsent from '@site/src/components/CookieConsent'; // 👈 Import this at the top
+
 
 import styles from './index.module.css';
 
@@ -38,6 +40,7 @@ export default function Home(): ReactNode {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <CookieConsent />
       </main>
     </Layout>
   );
