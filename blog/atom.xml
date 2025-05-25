@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://php.volt-test.com/blog</id>
-    <title>VOLT TEST PHP SDK Blog</title>
+    <title>VOLTTEST PHP SDK Blog</title>
     <updated>2025-03-03T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://php.volt-test.com/blog"/>
-    <subtitle>VOLT TEST PHP SDK Blog</subtitle>
+    <subtitle>VOLTTEST PHP SDK Blog</subtitle>
     <icon>https://php.volt-test.com/img/fav.png</icon>
     <entry>
         <title type="html"><![CDATA[Performance Testing: Types and Differences with Examples]]></title>
