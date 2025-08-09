@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'VOLT TEST PHP SDK',
+  title: 'VOLTTEST PHP SDK',
   tagline: 'Write and run performance, load, and stress tests directly in PHP.',
   favicon: 'img/fav.png',
 
@@ -74,7 +74,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/OG-PHP-SDK.png',
+    image: 'img/OG-FOR-PHP-SDK.png',
     navbar: {
       title: 'PHP SDK',
       logo: {
