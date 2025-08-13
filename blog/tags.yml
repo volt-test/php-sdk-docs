@@ -10,6 +10,9 @@ php:
 load-testing:
   label: "Load Testing"
   description: "Resources for testing application load performance."
+stress-testing:
+  label: "Stress Testing"
+  description: "Resources for stress testing applications."
 volt-test:
   label: "Volt-Test"
   description: "Guides and tutorials about Volt-Test."
@@ -17,3 +20,7 @@ volt-test:
 laravel:
     label: "Laravel"
     description: "Articles about Laravel development."
+
+php-sdk:
+    label: "PHP SDK"
+    description: "Resources and guides for using PHP SDKs."

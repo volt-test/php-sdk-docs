@@ -1,0 +1,227 @@
+---
+slug: effortless-laravel-performance-testing-with-volt-test-php-sdk
+title: Effortless Laravel Performance Testing with Volt Test PHP SDK
+description: "Discover how to seamlessly integrate Volt Test PHP SDK into your Laravel applications for efficient performance testing. Learn to create, run, and analyze tests with ease."
+authors: [elwafa]
+tags: [laravel, performance-testing, load-testing, stress-testing, volt-test, php-sdk]
+image: "/img/Effortless-Laravel-Performance-Testing-with-Volt-Test-PHP-SDK.png"
+---
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import DocsWaitlistForm from '@site/src/components/DocsWaitlistForm';
+
+# Effortless Laravel Performance Testing — Without Leaving PHP
+
+When your Laravel app hits real traffic, will it *fly*… or will it *fall over*?
+
+Most load-testing tools make you jump through hoops — learn a new scripting language, spin up external services, or fight with configs that feel like they belong to another ecosystem.
+
+That’s why I built the **Laravel Performance Testing package**:  
+a native, PHP-first way to run **load** and **stress tests** right inside your Laravel project — powered by the [Volt Test PHP SDK](https://php.volt-test.com).
+
+You write your tests in plain PHP, keep them version-controlled with your codebase, and run them with a single Artisan command. No context-switching. No external scripts. Just Laravel, PHP, and the performance insights you need before your users find the bottlenecks.
+
+<!-- truncate -->
+
+![Effortless Laravel Performance Testing with Volt Test PHP SDK](/img/Effortless-Laravel-Performance-Testing-with-Volt-Test-PHP-SDK.png)
+
+## Why I Created This Package
+
+About a month ago, I released this package to make performance testing in Laravel:
+- **Easier** – no external scripts or frameworks to learn.
+- **Native** – tests live inside your Laravel project.
+- **Flexible** – from simple single-URL load tests to complex multi-step scenarios.
+
+---
+
+## ✨ Features
+
+- **Laravel-friendly integration** – Works seamlessly with routes, middleware, and config.
+- **Artisan commands** – Generate and run tests directly from the CLI.
+- **Automatic route discovery** – Quickly build test scenarios from your existing routes.
+- **Variable extraction** – Reuse cookies, headers, JSON fields, and HTML values between steps.
+- **Data-driven testing** – Feed test data from CSV files for realistic simulations.
+- **Detailed metrics** – Success rate, RPS, average latency, P95 latency, and more.
+- **Report storage** – Save test results for later analysis.
+
+---
+
+## 🚀 Installation
+
+```bash
+composer require volt-test/laravel-performance-testing
+```
+
+Publish the configuration file:
+
+```bash
+php artisan vendor:publish --tag=volttest-config
+```
+
+This creates `config/volttest.php` where you can tweak settings like default virtual users, duration, and report paths.
+
+---
+
+## ⚡ Quick Start
+
+You can run a quick performance test without writing any code:
+
+```bash
+php artisan volttest:run https://example.com/api/login --users=100 --method=POST --body='{"email":"test@example.com","password":"secret"}'
+```
+
+Or, you can create a reusable test class:
+
+```bash
+php artisan volttest:make ExampleTest
+```
+
+This generates `app/VoltTests/ExampleTest.php`:
+
+```php
+namespace App\VoltTests;
+
+use VoltTest\Laravel\Contracts\VoltTestCase;
+use VoltTest\Laravel\VoltTestManager;
+
+class ExampleTest implements VoltTestCase
+{
+    public function define(VoltTestManager $manager): void
+    {
+        $manager->scenario('ExampleTest')
+            ->step('Visit Home Page')
+            ->get('https://example.com')
+            ->validateStatus('success', 200);
+    }
+}
+```
+
+Run it with:
+
+```bash
+php artisan volttest:run ExampleTest --users=50 --duration=30
+```
+
+---
+
+## 🎯 Route-Based Test Generation
+
+Skip manual coding by letting the package generate tests from your Laravel routes.
+
+```bash
+# Include all routes
+php artisan volttest:make ApiTest --routes
+
+# Filter by pattern
+php artisan volttest:make ApiTest --routes --filter="api/*"
+
+# Only GET routes
+php artisan volttest:make ApiTest --routes --method=GET
+
+# Only authenticated routes
+php artisan volttest:make ApiTest --routes --auth
+
+# Interactive selection
+php artisan volttest:make ApiTest --routes --select
+```
+
+---
+
+## 📊 Data-Driven Testing
+
+Simulate realistic usage with CSV files:
+
+**users.csv**
+```csv
+name,email,password
+John Doe,user1@example.com,password123
+Jane Smith,user2@example.com,password456
+```
+
+**Test definition:**
+```php
+$manager->scenario('RegisterTest')
+    ->dataSource('users.csv')
+    ->step('Register User')
+    ->post('/register', [
+        'name' => '${name}',
+        'email' => '${email}',
+        'password' => '${password}',
+    ]);
+```
+
+---
+
+## 🔍 Extract & Reuse Values
+
+You can capture values from responses and reuse them in later steps.
+
+**CSRF token from HTML**
+```php
+$scenario->step('Get Login Page')
+    ->get('/login')
+    ->extractCsrfToken('csrf_token');
+
+$scenario->step('Submit Login')
+    ->post('/login', [
+        '_token' => '${csrf_token}',
+        'email'  => 'user@example.com',
+        'password' => 'secret',
+    ]);
+```
+
+**JSON field**
+```php
+$scenario->step('Get User')
+    ->get('/api/user')
+    ->extractJson('user_id', 'data.id');
+```
+
+**Header**
+```php
+$scenario->step('Get Token')
+    ->get('/auth')
+    ->extractHeader('Authorization', 'Bearer ${token}');
+```
+
+---
+
+## 📈 Analyzing Results
+
+After running a test, you’ll see metrics such as:
+- ✅ Success rate
+- ⚡ Requests per second (RPS)
+- ⏱ Average & P95 latency
+- ⌛ Duration
+- ❌ Errors
+
+If `save_reports` is enabled, you’ll find detailed reports in:
+```
+storage/volttest/reports
+```
+
+---
+
+## 🏁 Conclusion
+
+With **Laravel Performance Testing** powered by the **Volt Test PHP SDK**, you can:
+
+- Keep performance tests right inside your Laravel project.
+- Run them with one simple Artisan command.
+- Get detailed, actionable performance metrics before your users ever notice a slowdown.
+
+No separate scripting language. No complex setup. Just **Laravel, PHP, and the truth about your app’s performance**.
+
+📚 **Docs:** [Laravel Performance Testing on GitHub](https://github.com/volt-test/laravel-performance-testing)  
+📦 **Volt Test PHP SDK:** [php.volt-test.com](https://php.volt-test.com)
+
+:::tip Pro Tip
+Integrate Volt-Test into your CI pipeline to catch performance regressions before they hit production.
+:::
+
+:::info Coming soon
+Be first to run massive, distributed tests in the cloud. Limited seats.
+<BrowserOnly fallback={<div />}>
+    {() => <DocsWaitlistForm />}
+</BrowserOnly>
+:::
+

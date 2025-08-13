@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Disallow: /private/
+Sitemap: https://php.volt-test.com/sitemap.xml
