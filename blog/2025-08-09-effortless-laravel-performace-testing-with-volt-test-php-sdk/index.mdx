@@ -6,6 +6,8 @@ authors: [elwafa]
 tags: [laravel, performance-testing, load-testing, stress-testing, volt-test, php-sdk]
 image: "/img/Effortless-Laravel-Performance-Testing-with-Volt-Test-PHP-SDK.png"
 ---
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import DocsWaitlistForm from '@site/src/components/DocsWaitlistForm';
 
 # Effortless Laravel Performance Testing — Without Leaving PHP
 
@@ -217,7 +219,8 @@ Integrate Volt-Test into your CI pipeline to catch performance regressions befor
 :::
 
 :::note Coming soon
-Run Volt-Test entirely in the cloud — no servers to set up, just upload your tests and scale to millions of virtual users.  
-👉 **[Join the early access list](https://volt-test.com/cloud)** to be first in line.
+<BrowserOnly fallback={<div />}>
+    {() => <DocsWaitlistForm />}
+</BrowserOnly>
 :::
 
