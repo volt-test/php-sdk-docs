@@ -3,6 +3,10 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+const {
+    POSTHOG_API_KEY,
+    POSTHOG_HOST,
+} = process.env;
 
 const config: Config = {
   title: 'VOLTTEST PHP SDK',
@@ -30,7 +34,16 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  plugins: [],
+  plugins: [
+      [
+          'posthog-docusaurus',
+          {
+              apiKey: POSTHOG_API_KEY,
+              appUrl: POSTHOG_HOST,
+              enableInDevelopment: true,
+          },
+      ],
+  ],
 
   presets: [
     [
