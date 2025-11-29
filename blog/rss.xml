@@ -18,7 +18,7 @@
 <p>Volt-Test was built to make load testing simple and native for PHP developers,
 and this new release takes it one step further.
 You can now test your Laravel APIs under load using the same PHPUnit environment you already use for your feature and unit tests.</p>
-<p><img decoding="async" loading="lazy" alt="Load Testing Laravel Applications with PHPUnit and Volt-test" src="https://php.volt-test.com/assets/images/volt-test-laravel-phpunit-870a997665cb1eba89953acefe45223c.png" width="2752" height="1536" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Load Testing Laravel Applications with PHPUnit and Volt-test" src="https://php.volt-test.com/assets/images/volt-test-laravel-phpunit-d1272d2cd3a17c034ce989040b1d1f63.png" width="2752" height="1536" class="img_ev3q"></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-phpunit-integration-matters">Why PHPUnit Integration Matters<a href="https://php.volt-test.com/blog/laravel-load-testing-with-phpunit#why-phpunit-integration-matters" class="hash-link" aria-label="Direct link to Why PHPUnit Integration Matters" title="Direct link to Why PHPUnit Integration Matters" translate="no">​</a></h2>
 <p>Most Laravel developers already rely on PHPUnit for testing logic and features.
 Now, you can also measure your app’s behavior under load without leaving that familiar workflow.</p>
