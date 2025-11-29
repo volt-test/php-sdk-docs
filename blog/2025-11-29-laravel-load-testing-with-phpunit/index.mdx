@@ -1,0 +1,308 @@
+---
+title: "Load Testing Laravel Applications with PHPUnit and Volt-test"
+description: "Learn how to run realistic performance and load tests in your Laravel application using PHPUnit and Volt-Test — no extra scripts, no new syntax."
+slug: laravel-load-testing-with-phpunit
+authors: [elwafa]
+tags: ["laravel", "phpunit", "performance-testing", "load-testing", "volt-test"]
+keywords: ["laravel performance testing", "laravel load testing", "phpunit load test", "volt-test", "laravel testing tools"]
+image: "/img/volt-test-laravel-phpunit.png"
+---
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import DocsWaitlistForm from '@site/src/components/DocsWaitlistForm';
+
+# Introducing Load Testing Inside PHPUnit
+With Volt-Test 1.2.0, you can now run load tests directly inside PHPUnit — no external scripts or configuration required.
+
+Volt-Test was built to make load testing simple and native for PHP developers,
+and this new release takes it one step further.
+You can now test your Laravel APIs under load using the same PHPUnit environment you already use for your feature and unit tests.
+<!-- truncate -->
+![Load Testing Laravel Applications with PHPUnit and Volt-test](/img/volt-test-laravel-phpunit.png)
+
+## Why PHPUnit Integration Matters
+Most Laravel developers already rely on PHPUnit for testing logic and features.
+Now, you can also measure your app’s behavior under load without leaving that familiar workflow.
+
+**This means:**
+
+- No switching to external tools or YAML scripts.
+- Run load tests in your CI/CD pipeline.
+- Catch performance regressions automatically.
+- Keep your load testing code version-controlled alongside your application tests.
+
+## Installation
+If you already use the package, update it:
+```bash
+composer update
+```
+or install fresh
+```bash
+composer require volt-test/laravel-performance-testing
+```
+you can check the package configuration options and how you can use in the blog post [Effortless Laravel Performance Testing with Volt Test PHP SDK](https://volt-test.com/blog/effortless-laravel-performance-testing-with-volt-test-php-sdk).
+
+## Configure PHPUnit
+In your `phpunit.xml` file, add a new testsuite for performance tests:
+```xml
+<testsuites>
+    ....
+    <testsuite name="Performance">
+        <directory>tests/Performance</directory>
+    </testsuite>
+</testsuites>
+```
+This tells PHPUnit to look for performance tests in the `tests/Performance` directory.
+Additionally, you can set environment variables for Volt-Test in the `phpunit.xml` file:
+```xml
+<php>
+ <env name="VOLTTEST_BASE_PATH" value="."/>
+<env name="VOLTTEST_SERVER_PORT" value="8009"/>
+<env name="VOLTTEST_ENABLE_SERVER_MANAGEMENT" value="true"/>
+<env name="VOLTTEST_DEBUG_FOR_SERVER_MANAGEMENT" value="true"/>
+</php>
+```
+Environment variables Explanation:
+- `VOLTTEST_BASE_PATH`: The base path for your Laravel application. (usually `.`)
+- `VOLTTEST_SERVER_PORT`: The Preferred port where your Laravel app will run during tests.
+- `VOLTTEST_ENABLE_SERVER_MANAGEMENT`: Enables automatic server management during tests without run you server (usually using this during you writing the test ).
+- `VOLTTEST_DEBUG_FOR_SERVER_MANAGEMENT`: Enables debug logs for server management (useful for troubleshooting).
+
+Alternatively, you can set these variables in your system environment or `.env` or `.env.testing` file.
+```bash
+VOLTTEST_BASE_PATH=.
+VOLTTEST_SERVER_PORT=8009
+VOLTTEST_ENABLE_SERVER_MANAGEMENT=true
+VOLTTEST_DEBUG_FOR_SERVER_MANAGEMENT=true
+```
+## Writing Load Tests with PHPUnit and Volt-Test
+Once installed and configure, you can create a new test file inside your Laravel app’s tests/Performance directory:
+```php
+<?php
+namespace Tests\Performance;
+
+use VoltTest\Laravel\Testing\PerformanceTestCase;
+
+class HomePageLoadTest extends PerformanceTestCase
+{
+    protected static bool $enableServerManagement = true;
+
+    public function testHomePageUnderLoad()
+    {
+        // Run a load test on the home page with 50 virtual users
+        $result = $this->loadTestUrl('/', [
+            'virtual_users' => 50,
+        ]);
+        // Assert that the success rate is above 99%
+        $this->assertVTSuccessful($result, 99);
+        // Assert that the 95th percentile response time is below 150ms
+        $this->assertVTP95ResponseTime($result, 150);
+    }
+}
+```
+In this example:
+- We create a `HomePageLoadTest` class that extends `PerformanceTestCase`.
+- We enable server management by setting the static property `$enableServerManagement` to `true`.
+    So Volt-Test will automatically start and stop your Laravel server during the test.
+- We define a test method `testHomePageUnderLoad` that runs a load test on the home page (`/`) with 50 virtual users.
+- We use assertions to verify that the success rate is above 99% and that the 95th percentile response time is below or equal 150 milliseconds.
+
+## Running Your Load Tests
+To execute your load tests, run PHPUnit with the performance testsuite:
+```bash
+vendor/bin/phpunit --testsuite Performance
+```
+This command will run all tests in the `tests/Performance` directory, including your load tests.
+You can also run a specific test file:
+```bash
+vendor/bin/phpunit tests/Performance/HomePageLoadTest.php
+```
+### Example Output
+PHPUnit interleaves Volt-Test performance reports with your regular assertions—for example:
+```text
+$ vendor/bin/phpunit --testsuite Performance
+PHPUnit 11.5.44 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.15
+Configuration: /path/to/app/phpunit.xml
+
+  Performance Report: testHomePageUnderLoad
+  Total Requests:      50
+  Success Rate:        100.00%
+  Requests/Sec (RPS):  346.19
+  Avg Latency:         74.2426ms
+  ----------------------------------------------------------------------
+                                                                 1 / 1 (100%)
+
+Time: 00:01.524, Memory: 30.00 MB
+```
+
+if you have set up your CI/CD pipeline to run PHPUnit tests, your load tests will automatically be included in the test suite.
+
+if you need to run the test to you staging or production environment, you can set the `VOLTTEST_BASE_URL` environment variable before running PHPUnit:
+
+As normal phpunit if assertion of the load test failed the test will be marked as failed.
+so it can help you to catch performance regressions early in your development process.
+
+## Advanced Load Testing Scenarios (Reusing Existing VoltTest Classes)
+
+If you've already created load tests using Volt-Test's native syntax (covered in [Effortless Laravel Performance Testing with Volt Test PHP SDK](https://volt-test.com/blog/effortless-laravel-performance-testing-with-volt-test-php-sdk)), you can now reuse those classes inside your PHPUnit tests.
+
+Here is an example:
+```php title="app/VoltTests/RegisterAndCheckoutTest.php"
+<?php
+
+namespace App\VoltTests;
+
+use VoltTest\Laravel\Contracts\VoltTestCase;
+use VoltTest\Laravel\VoltTestManager;
+
+class RegisterAndCheckoutTest implements VoltTestCase
+{
+    $scenario = $manager->scenario('EcommerceAPITest')
+            ->dataSource('registration_users.csv', 'sequential');
+
+        // Step 1 : Api.register
+        $scenario->step('Api.register')
+            ->post('/api/v1/register', [
+                'name' => '${name}',
+                'email' => '${email}',
+                'password' => '${password}',
+                'password_confirmation' => '${password}',
+            ], ['Content-Type' => 'application/json', 'Accept' => 'application/json'])
+            ->extractJson('token', 'token.access_token') // Extract the token for subsequent requests
+            ->expectStatus(201);
+
+        // Step 2 : Api.products.index
+        $scenario->step('Api.products.index')
+            ->get('/api/v1/products', ['Authorization' => 'Bearer ${token}', 'Content-Type' => 'application/json', 'Accept' => 'application/json'])
+            ->extractJson('id', 'data[0].id') // Extract the first product ID
+            ->expectStatus(200);
+
+        // Step 4 : Api.cart.add
+        $scenario->step('Api.cart.add')
+            ->post('/api/v1/cart/add', [
+                'product_id' => '${id}', // Use the extracted product ID
+                'quantity' => 1, // Set a default quantity
+            ], ['Authorization' => 'Bearer ${token}', 'Content-Type' => 'application/json', 'Accept' => 'application/json'])
+            ->expectStatus(200);
+
+        // Step 6 : Api.orders.checkout
+        $scenario->step('Api.orders.checkout')
+            ->post('/api/v1/orders/checkout', [
+                // No Body needed for checkout
+            ], ['Authorization' => 'Bearer ${token}', 'Content-Type' => 'application/json', 'Accept' => 'application/json'])
+            ->expectStatus(201);
+    }
+}
+```
+This Volt-Test class simulates user registration, product browsing, adding to cart, and checkout using a CSV data source for user details.
+
+You can then create a PHPUnit test that runs this Volt-Test class under load to measure its performance and can also verify data integrity:
+```php title="tests/Performance/RegisterAndCheckoutTest.php"
+<?php
+namespace Tests\Performance;
+
+use App\VoltTests\RegisterAndCheckout;
+use VoltTest\Laravel\Testing\PerformanceTestCase;
+use App\Models\Product;
+
+class RegisterAndCheckoutTest extends PerformanceTestCase
+{
+    public function testPerformanceFromExistingClass(): void
+    {
+        // Create a product with initial quantity 100
+        Product::query()->create([
+            'name' => 'Test Product',
+            'quantity' => 100,
+        ]);
+        $result = $this->runVoltTest(new EcomerceAPITest, [
+            'virtual_users' => 10,
+        ]);
+        $this->assertVTSuccessful($result, 100);
+        $this->assertVTErrorRate($result, 0);
+        $this->assertVTMinResponseTime($result, 100);
+        $this->assertVTAverageResponseTime($result, 200);
+        $this->assertVTP95ResponseTime($result, 200);
+        $this->assertVTP99ResponseTime($result, 200);
+        // check the remain product in the inventory after test
+        $this->assertEquals(90, Product::query()->first()->quantity, "Product quantity should be 90 after 10 registrations.");
+    }
+}
+```
+
+When you run this PHPUnit test, it will execute the `RegisterAndCheckout` Volt-Test class with 10 virtual users and report the performance metrics alongside your other PHPUnit tests.
+```bash
+./vendor/bin/phpunit --testsuite=Performance
+```
+### Example Output
+The output will look like this:
+```text
+ ./vendor/bin/phpunit --testsuite=Performance
+PHPUnit 11.5.44 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.15
+Configuration: path/to/app/phpunit.xml
+
+
+
+----------------------------------------------------------------------
+Performance Report: testPerformanceFromExistingClass
+----------------------------------------------------------------------
+Total Requests:      40
+Success Rate:        100.00%
+Requests/Sec (RPS):  162.91
+Avg Latency:         52.854091ms
+P95 Latency:         72.748667ms
+P99 Latency:         78.206542ms
+----------------------------------------------------------------------
+.                                                                   1 / 1 (100%)
+
+Time: 00:00.787, Memory: 28.00 MB
+
+OK (1 test, 13 assertions)
+```
+In this PHPUnit test:
+- We create a `RegistrationPerformanceTest` class that extends `PerformanceTestCase`.
+- We define a test method `testPerformanceFromExistingClass` that runs the `RegistrationTest` Volt-Test class with 10 virtual users.
+- We use various assertions to validate the performance metrics of the test.
+
+This approach allows you to leverage existing Volt-Test classes while integrating them seamlessly into your PHPUnit test suite.
+
+This tests can catch **race conditions** and data integrity issues under load, ensuring your application behaves correctly even during high traffic scenarios.
+
+## Integration Benefits
+By integrating Volt-Test with PHPUnit, you gain several advantages:
+- **Unified Testing Workflow**: Manage all your tests—unit, feature, and performance—in one place.
+- **Automated Performance Regression Detection**: Catch performance issues early in your development cycle
+- **Reusable Test Logic**: Leverage existing Volt-Test classes in your PHPUnit tests for consistency and code reuse.
+- **CI/CD Integration**: Seamlessly include load tests in your continuous integration pipelines.
+- **Comprehensive Reporting**: Get detailed performance metrics alongside your regular test results.
+
+## What's Next: Volt-Test Cloud
+The PHPUnit integration is just one part of Volt-Test's vision for simplifying performance testing.
+In the near future, we plan to introduce **Volt-Test Cloud**—a hosted service that
+enables you to run large-scale load tests without managing infrastructure.
+:::info Coming soon
+Be first to run massive, distributed tests in the cloud. Limited seats.
+<BrowserOnly fallback={<div />}>
+    {() => <DocsWaitlistForm />}
+</BrowserOnly>
+:::
+
+## Conclusion
+Running load tests directly within PHPUnit using Volt-Test simplifies performance testing for Laravel applications.
+It allows developers to maintain a consistent testing workflow, catch performance regressions early, and ensure their applications can handle real-world traffic.
+By leveraging existing Volt-Test classes, you can also ensure data integrity under load, making your tests
+more robust and reliable.
+
+## Learn More
+- [GitHub Release Notes →](https://github.com/volt-test/laravel-performance-testing/releases/tag/1.2.0)
+- [Full PHPUnit Integration Docs →](https://github.com/volt-test/laravel-performance-testing/blob/main/docs/PHPUNIT_INTEGRATION.md)
+- [Previous Article: Effortless Laravel Load Testing with Volt-Test PHP SDK →](https://php.volt-test.com/blog/effortless-laravel-performance-testing-with-volt-test-php-sdk)
+- [Stress Testing Laravel with the Volt-Test Web UI →](https://php.volt-test.com/blog/stress-testing-laravel-with-volt-test-web-ui)
+---
+⭐ **Star the repository on GitHub:** [volt-test/laravel-performance-testing](https://github.com/volt-test/laravel-performance-testing)
+
+💬 **Follow updates on X:** [@VoltTest](https://x.com/VT_Developers)
+
+---

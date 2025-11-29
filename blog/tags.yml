@@ -16,6 +16,9 @@ stress-testing:
 volt-test:
   label: "Volt-Test"
   description: "Guides and tutorials about Volt-Test."
+phpunit:
+  label: "PHPUnit"
+  description: "Articles about PHPUnit testing framework."
 
 laravel:
     label: "Laravel"
