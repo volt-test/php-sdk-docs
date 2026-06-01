@@ -6,6 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const {
     POSTHOG_API_KEY,
     POSTHOG_HOST,
+    APP_URL,
 } = process.env;
 
 const config: Config = {
@@ -23,6 +24,10 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'volt-test', // Usually your GitHub org/user name.
   projectName: 'php-sdk-docs', // Usually your repo name.
+
+  customFields: {
+    appUrl: APP_URL || 'https://volt-test.com',
+  },
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -51,8 +56,13 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          lastVersion: '1.x',
+          onlyIncludeVersions: ['1.x'],
+          versions: {
+            '1.x': {
+              label: '1.x',
+            },
+          },
           editUrl:
             'https://github.com/volt-test/php-sdk-docs/tree/main/',
         },
@@ -102,6 +112,10 @@ const config: Config = {
           label: 'Docs',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+        },
         {
           href: 'https://github.com/volt-test/php-sdk',
           label: 'GitHub',

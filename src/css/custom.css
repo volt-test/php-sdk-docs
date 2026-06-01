@@ -359,10 +359,27 @@ code {
   transform: translateX(4px);
 }
 
-.menu__link--active {
+.menu__link--active:not(.menu__link--sublist) {
   background: var(--vt-gradient-primary) !important;
   color: white !important;
   box-shadow: var(--vt-shadow-sm);
+}
+
+/* Active category headers — subtle highlight, not full gradient */
+.menu__link--sublist.menu__link--active {
+  background: var(--vt-blue-subtle) !important;
+  color: var(--vt-blue-dark) !important;
+  font-weight: 700;
+}
+
+[data-theme='dark'] .menu__link--sublist.menu__link--active {
+  background: rgba(56, 189, 248, 0.1) !important;
+  color: var(--vt-blue-light) !important;
+}
+
+/* Ensure category arrow inherits text color */
+.menu__link--sublist::after {
+  background-size: 1.25rem 1.25rem;
 }
 
 [data-theme='dark'] .menu__link:hover {
@@ -524,4 +541,518 @@ code {
 
 [data-theme='dark'] .avatar__name {
   color: var(--vt-blue-light);
+}
+
+/* -----------------------------------------------------------------------------
+ * Promo Banner
+ * ----------------------------------------------------------------------------- */
+
+.vt-promo-banner {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1000;
+  position: relative;
+  color: #006064;
+  line-height: 1.5;
+}
+
+.vt-promo-banner__text {
+  display: inline;
+}
+
+.vt-promo-banner a {
+  color: #00838f;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 700;
+}
+
+.vt-promo-banner a:hover {
+  color: #004d40;
+}
+
+[data-theme='dark'] .vt-promo-banner {
+  background: linear-gradient(135deg, #0c4a6e 0%, #164e63 100%);
+  color: #e0f2fe;
+}
+
+[data-theme='dark'] .vt-promo-banner a {
+  color: #67e8f9;
+}
+
+[data-theme='dark'] .vt-promo-banner a:hover {
+  color: #a5f3fc;
+}
+
+/* -----------------------------------------------------------------------------
+ * Cookie Consent Banner
+ * ----------------------------------------------------------------------------- */
+
+.vt-cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(15, 23, 42, 0.95);
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  z-index: 10000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.vt-cookie-banner__text {
+  margin: 0;
+  flex: 1;
+  max-width: 600px;
+}
+
+.vt-cookie-banner__btn {
+  flex-shrink: 0;
+  padding: 0.5rem 1.5rem;
+  background: var(--vt-gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--vt-radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--vt-transition-fast);
+  white-space: nowrap;
+}
+
+.vt-cookie-banner__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+}
+
+/* -----------------------------------------------------------------------------
+ * Waitlist Form Polish
+ * ----------------------------------------------------------------------------- */
+
+.card input[type="email"],
+.card input[type="text"] {
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.95rem;
+  transition: border-color var(--vt-transition-fast), box-shadow var(--vt-transition-fast);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-content);
+}
+
+.card input[type="email"]:focus,
+.card input[type="text"]:focus {
+  border-color: var(--vt-blue-primary);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+/* -----------------------------------------------------------------------------
+ * Table of Contents - Scrollable on mobile
+ * ----------------------------------------------------------------------------- */
+
+.table-of-contents {
+  font-size: 0.85rem;
+}
+
+.table-of-contents__link:hover {
+  color: var(--vt-blue-primary);
+}
+
+/* -----------------------------------------------------------------------------
+ * Doc page content - better reading width
+ * ----------------------------------------------------------------------------- */
+
+.markdown table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+.markdown table th,
+.markdown table td {
+  padding: 0.6rem 1rem;
+}
+
+/* -----------------------------------------------------------------------------
+ * Navbar Mobile Improvements
+ * ----------------------------------------------------------------------------- */
+
+/* Prevent title truncation on mobile */
+@media screen and (max-width: 768px) {
+  .navbar__title {
+    font-size: 0.9rem;
+  }
+
+  .navbar__brand {
+    margin-right: 0;
+  }
+
+  .navbar__logo {
+    height: 1.6rem;
+  }
+
+  /* Solid navbar background on mobile — no transparency */
+  .navbar {
+    padding: 0.5rem 0.75rem;
+    background: #ffffff !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  [data-theme='dark'] .navbar {
+    background: #0f172a !important;
+  }
+
+  /* Hide version dropdown label text on very small screens — icon only */
+  .navbar__item.dropdown--right .navbar__link {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .navbar__title {
+    font-size: 0.8rem;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Mobile sidebar — must be fully opaque so items are visible */
+.navbar-sidebar {
+  background: #ffffff !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme='dark'] .navbar-sidebar {
+  background: #0f172a !important;
+}
+
+.navbar-sidebar__brand {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+[data-theme='dark'] .navbar-sidebar__brand {
+  border-bottom-color: rgba(148, 163, 184, 0.15);
+  background: #0f172a;
+}
+
+.navbar-sidebar__items {
+  padding: 0.5rem 0;
+  background: #ffffff;
+}
+
+[data-theme='dark'] .navbar-sidebar__items {
+  background: #0f172a;
+}
+
+.navbar-sidebar .menu__link {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 0;
+  transition: background-color var(--vt-transition-fast);
+  color: #1e293b;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link {
+  color: #e2e8f0;
+}
+
+.navbar-sidebar .menu__link:hover {
+  background: #f0f9ff;
+  color: var(--vt-blue-primary);
+  transform: none;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--vt-blue-light);
+}
+
+.navbar-sidebar .menu__link--active:not(.menu__link--sublist) {
+  background: var(--vt-gradient-primary) !important;
+  color: white !important;
+  border-radius: var(--vt-radius-sm);
+  margin: 0 0.5rem;
+}
+
+.navbar-sidebar .menu__link--sublist.menu__link--active {
+  background: #f0f9ff !important;
+  color: #1e293b !important;
+  font-weight: 700;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link--sublist.menu__link--active {
+  background: rgba(56, 189, 248, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+/* External links in sidebar (GitHub, Discord, X) */
+.navbar-sidebar .navbar__link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+[data-theme='dark'] .navbar-sidebar .navbar__link {
+  color: #e2e8f0;
+}
+
+.navbar-sidebar .navbar__link:hover {
+  background: #f0f9ff;
+  color: var(--vt-blue-primary);
+  transform: none;
+  text-shadow: none;
+}
+
+[data-theme='dark'] .navbar-sidebar .navbar__link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--vt-blue-light);
+}
+
+/* -----------------------------------------------------------------------------
+ * Mobile Responsive Overrides
+ * ----------------------------------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+  /* Promo banner compact on mobile */
+  .vt-promo-banner {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  /* Cookie banner stacks vertically */
+  .vt-cookie-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .vt-cookie-banner__text {
+    font-size: 0.8rem;
+  }
+
+  .vt-cookie-banner__btn {
+    width: 100%;
+    padding: 0.6rem;
+  }
+
+  /* Hero section tighter */
+  .hero {
+    padding-top: 4rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* Feature cards full-width with gap */
+  .col--4 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* Code blocks scroll horizontally */
+  pre {
+    max-width: 100%;
+  }
+
+  .codePre {
+    font-size: 0.8rem;
+  }
+
+  /* Pagination nav stacks */
+  .pagination-nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pagination-nav__link {
+    width: 100%;
+  }
+
+  /* Buttons stack on very small screens */
+  .buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .buttons .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Sidebar padding */
+  .theme-doc-sidebar-container {
+    border-right: none !important;
+  }
+
+  /* Markdown images responsive */
+  .markdown img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Footer links stack */
+  .footer .row {
+    gap: 1.5rem;
+  }
+
+  /* Waitlist form card */
+  .card {
+    margin: 0 0.5rem !important;
+  }
+
+  /* Turnstile widget scaling */
+  .cf-turnstile {
+    transform: scale(0.9);
+    transform-origin: left;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem !important;
+    line-height: 1.15;
+  }
+
+  .hero .hero__subtitle {
+    font-size: 0.95rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .vt-promo-banner {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  /* Doc page tables scroll */
+  .markdown table {
+    font-size: 0.8rem;
+  }
+
+  .markdown table th,
+  .markdown table td {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .markdown h1 {
+    font-size: 1.6rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.3rem;
+  }
+
+  .markdown h3 {
+    font-size: 1.1rem;
+  }
+
+  .markdown p {
+    font-size: 0.95rem;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Scrollbar styling for code blocks
+ * ----------------------------------------------------------------------------- */
+
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.3);
+  border-radius: 3px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.5);
+}
+
+/* -----------------------------------------------------------------------------
+ * Focus styles for accessibility
+ * ----------------------------------------------------------------------------- */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--vt-blue-primary);
+  outline-offset: 2px;
+}
+
+/* Skip nav for accessibility */
+.skipToContent_fXgn:focus {
+  background: var(--vt-gradient-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--vt-radius-sm);
+}
+
+/* -----------------------------------------------------------------------------
+ * Waitlist Form
+ * ----------------------------------------------------------------------------- */
+
+.vt-waitlist-card {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.vt-waitlist-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.vt-waitlist-input {
+  padding: 0.75rem 1rem;
+  border-radius: var(--vt-radius-sm);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  outline: none;
+  width: 100%;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.95rem;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-content);
+  transition: border-color var(--vt-transition-fast), box-shadow var(--vt-transition-fast);
+}
+
+.vt-waitlist-input:focus {
+  border-color: var(--vt-blue-primary);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.vt-waitlist-btn {
+  border-radius: var(--vt-radius-sm) !important;
+  padding: 0.7rem 1.2rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .vt-waitlist-card {
+    margin: 0 0.5rem;
+  }
+
+  .vt-waitlist-input {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
 }

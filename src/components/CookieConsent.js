@@ -39,32 +39,11 @@ export default function CookieConsent() {
     if (!showBanner) return null;
 
     return (
-        <div style={{
-            position: 'fixed',
-            bottom: 0,
-            width: '100%',
-            backgroundColor: '#1E3A8A', // Volt-Test blue
-            color: '#ffffff',
-            padding: '1rem',
-            textAlign: 'center',
-            zIndex: 1000,
-            fontSize: '0.95rem',
-            boxShadow: '0 -2px 10px rgba(0,0,0,0.2)',
-        }}>
-            We use cookies to analyze how users interact with our site and improve performance. By clicking 'Accept', you agree to our use of cookies.
-            <button
-                onClick={acceptCookies}
-                style={{
-                    marginLeft: '1rem',
-                    padding: '0.4rem 1rem',
-                    backgroundColor: '#ffffff',
-                    color: '#1E3A8A',
-                    border: 'none',
-                    borderRadius: '6px',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                }}
-            >
+        <div className="vt-cookie-banner">
+            <p className="vt-cookie-banner__text">
+                We use cookies to analyze how users interact with our site and improve performance.
+            </p>
+            <button onClick={acceptCookies} className="vt-cookie-banner__btn">
                 Accept
             </button>
         </div>

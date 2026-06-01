@@ -192,3 +192,84 @@
     width: 32px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .features {
+    padding: 3rem 0;
+  }
+
+  .featureCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .featureCard .text--center {
+    text-align: left;
+  }
+
+  .featureSvgWrapper {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    border-radius: 14px;
+  }
+
+  .featureSvg {
+    height: 28px;
+    width: 28px;
+  }
+
+  .featureTitle {
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .featureDescription {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .featureCard:hover {
+    transform: translateY(-2px);
+  }
+
+  .featureCard:hover .featureSvgWrapper {
+    transform: scale(1.05) rotate(2deg);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .features {
+    padding: 2rem 0;
+  }
+
+  .featureCard {
+    padding: 1rem 1.25rem;
+    border-radius: var(--vt-radius-md);
+  }
+
+  .featureSvgWrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .featureSvg {
+    height: 24px;
+    width: 24px;
+  }
+
+  .featureTitle {
+    font-size: 1.05rem;
+  }
+
+  .featureDescription {
+    font-size: 0.85rem;
+  }
+}
