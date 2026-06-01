@@ -254,7 +254,7 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 6rem 1.5rem;
+    padding: 5rem 1.25rem 4rem;
   }
 
   .heroBanner h1 {
@@ -265,18 +265,76 @@
     font-size: 1.25rem;
   }
 
+  .codeShowcase {
+    margin: 2rem auto 3rem;
+  }
+
   .codeBlock {
     padding: 0;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 4rem 1rem 3rem;
+  }
+
   .heroBanner h1 {
     font-size: 2.5rem;
   }
 
   .heroBanner .hero__subtitle {
     font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .codeShowcase {
+    margin: 1.5rem auto 2rem;
+  }
+
+  .codeContent {
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .codePre {
+    padding: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .heroBanner {
+    padding: 3rem 0.75rem 2.5rem;
+  }
+
+  .heroBanner h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .heroBanner .hero__subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .codeShowcase {
+    margin: 1rem auto 1.5rem;
+  }
+
+  .codeContent {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .codePre {
+    padding: 0.75rem;
+  }
+
+  .codeHeader {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
   }
 }
 

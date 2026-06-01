@@ -6,22 +6,14 @@ import Link from '@docusaurus/Link';
 export default function LayoutWrapper(props) {
     return (
         <>
-            {/* 🚀 Laravel Banner */}
-            <div style={{
-                backgroundColor: '#e0f7fa',
-                padding: '0.75rem 1rem',
-                textAlign: 'center',
-                fontWeight: '600',
-                fontSize: '1rem',
-                zIndex: 1000,
-                position: 'relative',
-                color: '#006064',
-            }}>
-                🚀 Laravel users: Our new&nbsp;
-                <Link to="https://github.com/volt-test/laravel-performance-testing" style={{ textDecoration: 'underline' }}>
-                    Laravel Performance Testing Package
-                </Link>
-                &nbsp;is now available!
+            <div className="vt-promo-banner">
+                <span className="vt-promo-banner__text">
+                    Laravel users: Our new{' '}
+                    <Link to="https://github.com/volt-test/laravel-performance-testing">
+                        Laravel Performance Testing Package
+                    </Link>
+                    {' '}is now available!
+                </span>
             </div>
 
             <Layout {...props} />
