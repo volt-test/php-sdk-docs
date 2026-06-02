@@ -48,6 +48,17 @@ const config: Config = {
               enableInDevelopment: true,
           },
       ],
+      [
+          'docusaurus-plugin-llms',
+          {
+              generateLLMsTxt: true,
+              generateLLMsFullTxt: true,
+              title: 'VoltTest Documentation',
+              description: 'Performance testing platform for PHP and Laravel. Scale from 1K to 10M+ concurrent users.',
+              excludeImports: true,
+              removeDuplicateHeadings: true,
+          },
+      ],
   ],
 
   presets: [

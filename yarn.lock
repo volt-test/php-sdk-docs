@@ -1534,7 +1534,7 @@
     webpack "^5.95.0"
     webpackbar "^6.0.1"
 
-"@docusaurus/core@^2.0.0-alpha.60 || ^2.0.0 || ^3.0.0", "@docusaurus/core@^3.9.1", "@docusaurus/core@3.9.1":
+"@docusaurus/core@^2.0.0-alpha.60 || ^2.0.0 || ^3.0.0", "@docusaurus/core@^3.0.0", "@docusaurus/core@^3.9.1", "@docusaurus/core@3.9.1":
   version "3.9.1"
   resolved "https://registry.npmjs.org/@docusaurus/core/-/core-3.9.1.tgz"
   integrity sha512-FWDk1LIGD5UR5Zmm9rCrXRoxZUgbwuP6FBA7rc50DVfzqDOMkeMe3NyJhOsA2dF0zBE3VbHEIMmTjKwTZJwbaA==
@@ -3279,6 +3279,13 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+brace-expansion@^2.0.2:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.1.1.tgz"
+  integrity sha512-WR1cURNjuvBLMZBMbqM0UoE+WAfdUcEV1ccD8PVBVOI+Z3ND4+SZbN8RsfT2bMuG1qwz5RFvPukSZm5fF2D5eA==
+  dependencies:
+    balanced-match "^1.0.0"
+
 braces@^3.0.3, braces@~3.0.2:
   version "3.0.3"
   resolved "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz"
@@ -4154,6 +4161,15 @@ docusaurus-lunr-search@^3.6.0:
     to-vfile "^6.1.0"
     unified "^9.2.2"
     unist-util-is "^4.1.0"
+
+docusaurus-plugin-llms@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/docusaurus-plugin-llms/-/docusaurus-plugin-llms-0.4.0.tgz"
+  integrity sha512-jYlj2HJ5+gu7oJZuJ83Hk8KlB65YlZZ/7UpHXiL7Qr+qpNBkVocmt2Molc6F3HNr5RqcfhWD/98CvgyNztg/ow==
+  dependencies:
+    gray-matter "^4.0.3"
+    minimatch "^9.0.3"
+    yaml "^2.8.1"
 
 dom-converter@^0.2.0:
   version "0.2.0"
@@ -6753,6 +6769,13 @@ minimatch@^3.1.2, minimatch@3.1.2:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
+
+minimatch@^9.0.3:
+  version "9.0.9"
+  resolved "https://registry.npmjs.org/minimatch/-/minimatch-9.0.9.tgz"
+  integrity sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==
+  dependencies:
+    brace-expansion "^2.0.2"
 
 minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.6:
   version "1.2.8"
@@ -9740,6 +9763,11 @@ yallist@^3.0.2:
   version "3.1.1"
   resolved "https://registry.npmjs.org/yallist/-/yallist-3.1.1.tgz"
   integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
+
+yaml@^2.8.1:
+  version "2.9.0"
+  resolved "https://registry.npmjs.org/yaml/-/yaml-2.9.0.tgz"
+  integrity sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==
 
 yocto-queue@^1.0.0:
   version "1.2.1"

@@ -1,0 +1,9 @@
+customHeaders:
+  - pattern: /
+    headers:
+      - key: Link
+        value: '</docs/what-is-volttest>; rel="service-doc", </sitemap.xml>; rel="describedby", </llms.txt>; rel="describedby"; type="text/plain"'
+  - pattern: /docs/**
+    headers:
+      - key: Link
+        value: '</docs/what-is-volttest>; rel="service-doc", </sitemap.xml>; rel="describedby", </llms.txt>; rel="describedby"; type="text/plain"'
