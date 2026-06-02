@@ -8,11 +8,11 @@ export default function LayoutWrapper(props) {
         <>
             <div className="vt-promo-banner">
                 <span className="vt-promo-banner__text">
-                    Laravel users: Our new{' '}
-                    <Link to="https://github.com/volt-test/laravel-performance-testing">
-                        Laravel Performance Testing Package
+                    VoltTest Cloud is in closed beta —{' '}
+                    <Link to="https://volt-test.com/register">
+                        join the waitlist
                     </Link>
-                    {' '}is now available!
+                    {' '}for early access.
                 </span>
             </div>
 

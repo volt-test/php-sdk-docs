@@ -48,39 +48,20 @@ $test->setDuration('1h');   // 1 hour
 - Format: `<number>[s|m|h]`
 - Cannot be used together with `stage()`
 
-### Ramp-Up
+### Ramp-Up & Staged Load Profiles
 
-Set the ramp-up time for virtual users to gradually start:
-
-```php
-$test->setRampUp('10s');  // All VUs start within 10 seconds
-```
-
-- Format: `<number>[s|m|h]`
-- Cannot be used together with `stage()`
-
-### Staged Load Profiles
-
-Define a multi-stage load profile where virtual users ramp between targets:
+Control how virtual users are distributed over time — gradual ramp-up, staged profiles with spikes, step-up stress tests, and more.
 
 ```php
-$test = new VoltTest('Staged Load Test');
+$test->setRampUp('10s');  // Gradual start over 10 seconds
 
-$test->stage('1m', 50);    // Ramp to 50 VUs over 1 minute
-$test->stage('5m', 50);    // Hold at 50 VUs for 5 minutes
-$test->stage('1m', 100);   // Ramp to 100 VUs over 1 minute
-$test->stage('5m', 100);   // Hold at 100 VUs for 5 minutes
-$test->stage('2m', 0);     // Ramp down to 0 VUs over 2 minutes
+// Or use stages for dynamic profiles:
+$test->stage('2m', 100);  // Ramp to 100 VUs
+$test->stage('10m', 100); // Hold
+$test->stage('2m', 0);    // Ramp down
 ```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| duration | string | Duration of this stage (`<number>[s\|m\|h]`) |
-| target | int | Target VU count at the end of this stage |
-
-:::warning
-Stages are mutually exclusive with `setVirtualUsers()`, `setDuration()`, and `setRampUp()`. Use one approach or the other.
-:::
+See the [Load Profiles](/docs/load-profiles) page for the full guide — constant load, staged patterns (spike, stress, soak), and when to use each.
 
 ### HTTP Timeout
 
@@ -137,49 +118,15 @@ Returns a `TestResult` object. See the [Results](/docs/Result) page for availabl
 
 ### Cloud Execution
 
-Run tests on VoltTest's cloud infrastructure:
+Run tests on VoltTest's managed cloud infrastructure instead of locally:
 
 ```php
 $test->cloud('vt_your_api_key');
-
 $cloudRun = $test->run();
-
-echo "Run ID: " . $cloudRun->getRunId() . "\n";
 echo "Dashboard: " . $cloudRun->getDashboardUrl() . "\n";
 ```
 
-Returns a `CloudRun` object with:
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| getRunId() | string | The run identifier |
-| getTestId() | string | The test identifier |
-| getStatus() | string | Run status |
-| getDashboardUrl() | string | Link to the results dashboard |
-| isSuccessful() | bool | Whether the run completed successfully |
-
-You can also set the cloud execution timeout (default: 30 minutes):
-
-```php
-$test->setCloudTimeout(3600);  // 1-hour timeout
-```
-
-### Region Distribution
-
-Distribute cloud test load across multiple regions:
-
-```php
-$test->cloud('vt_your_api_key');
-$test->regions([
-    'us-east-1' => 60,  // 60% of VUs in US East
-    'eu-west-1' => 40,  // 40% of VUs in EU West
-]);
-
-$cloudRun = $test->run();
-```
-
-- Weights must sum to 100
-- Requires cloud execution mode (`cloud()` must be called first)
+In cloud mode, `run()` returns a `CloudRun` object instead of `TestResult`. See the [Cloud Mode](/docs/cloud-mode) page for the full guide — setup, configuration, region distribution, error handling, and more.
 
 ## Complete Example
 

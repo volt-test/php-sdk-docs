@@ -10,12 +10,12 @@ const {
 } = process.env;
 
 const config: Config = {
-  title: 'VOLTTEST PHP SDK',
-  tagline: 'Write and run performance, load, and stress tests directly in PHP.',
+  title: 'VoltTest Documentation',
+  tagline: 'Performance testing platform for PHP and Laravel. Scale from 1K to 10M+ concurrent users.',
   favicon: 'img/fav.png',
 
   // Set the production url of your site here
-  url: 'https://php.volt-test.com',
+  url: 'https://docs.volt-test.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -99,9 +99,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/OG-FOR-PHP-SDK.png',
     navbar: {
-      title: 'PHP SDK',
+      title: '',
       logo: {
-        alt: 'Volt Test',
+        alt: 'VoltTest',
         src: 'img/Blue.png',
       },
       items: [
@@ -137,11 +137,27 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
-              label: 'Documentations',
+              label: 'What is VoltTest?',
+              to: '/docs/what-is-volttest',
+            },
+            {
+              label: 'PHP SDK',
               to: '/docs/introduction',
+            },
+            {
+              label: 'Laravel Integration',
+              to: '/docs/laravel/laravel-installation',
+            },
+            {
+              label: 'Cloud Mode (PHP SDK)',
+              to: '/docs/cloud-mode',
+            },
+            {
+              label: 'Cloud Mode (Laravel)',
+              to: '/docs/laravel/laravel-cloud-mode',
             },
           ],
         },
@@ -149,38 +165,38 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'X(Twitter)',
-              href: 'https://x.com/vt_developers',
+              label: 'Discord',
+              href: 'https://discord.gg/BvQD6bptaD',
             },
             {
-              label: 'Github Discussions',
+              label: 'GitHub Discussions',
               href: 'https://github.com/volt-test/php-sdk/discussions',
             },
             {
-              label: 'Issues',
-              href: 'https://github.com/volt-test/php-sdk/issues',
-            },
-            {
-              label: "Discord",
-              href: "https://discord.gg/BvQD6bptaD",
+              label: 'X (Twitter)',
+              href: 'https://x.com/vt_developers',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Resources',
           items: [
             {
               label: 'Blog',
               to: '/blog',
             },
             {
-              label: 'GitHub',
+              label: 'PHP SDK on GitHub',
               href: 'https://github.com/volt-test/php-sdk',
+            },
+            {
+              label: 'Laravel Package on GitHub',
+              href: 'https://github.com/volt-test/laravel-performance-testing',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a target="_blank" href='https://volt-test.com'>Volt-Test</a>, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a target="_blank" href='https://volt-test.com'>VoltTest</a>. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.vsDark,

@@ -1,5 +1,5 @@
 ---
-id: Core Concepts and Architecture
+id: core-concepts-and-architecture
 title: Core Concepts and Architecture
 sidebar_label: Core Concepts and Architecture
 sidebar_position: 4

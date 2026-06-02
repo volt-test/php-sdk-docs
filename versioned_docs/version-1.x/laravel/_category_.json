@@ -1,0 +1,8 @@
+{
+  "label": "Laravel Integration",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "Integrate VoltTest into your Laravel application for performance testing with Artisan commands, PHPUnit assertions, and cloud execution."
+  }
+}

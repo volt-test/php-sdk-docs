@@ -11,56 +11,56 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Native PHP SDK',
+    title: 'Write Tests in PHP',
     Svg: require('@site/static/img/code-icon.svg').default,
     description: (
       <>
-        Write tests in the language you love. Seamless integration with Laravel, Symfony, and more.
+        Native PHP SDK with fluent API. First-class Laravel integration with Artisan commands and PHPUnit assertions.
       </>
     ),
   },
   {
-    title: 'Blazing Fast',
+    title: 'Go-Powered Engine',
     Svg: require('@site/static/img/lightning-icon.svg').default,
     description: (
       <>
-        Powered by a high-performance Go engine to simulate thousands of concurrent users efficiently.
+        High-performance Go engine simulates thousands of concurrent users with minimal memory and CPU.
       </>
     ),
   },
   {
-    title: 'Scenario Management',
+    title: 'Cloud Scalable',
     Svg: require('@site/static/img/layers-icon.svg').default,
     description: (
       <>
-        Define complex user flows with weights, think times, and custom data providers.
+        Run locally for development or scale to 10M+ virtual users on VoltTest Cloud across multiple regions.
       </>
     ),
   },
   {
-    title: 'Real-time Metrics',
+    title: 'Real-Time Dashboard',
     Svg: require('@site/static/img/activity-icon.svg').default,
     description: (
       <>
-        Watch your tests run in real-time with detailed CLI output and aggregated reports.
+        Live metrics, response time charts, and error analysis. Watch your tests run as they happen.
       </>
     ),
   },
   {
-    title: 'Resource Efficient',
+    title: 'Laravel Native',
     Svg: require('@site/static/img/cpu-icon.svg').default,
     description: (
       <>
-        Minimal memory footprint allows you to run massive loads from a single machine.
+        Artisan commands, route discovery, CSRF handling, PHPUnit integration, and performance assertions out of the box.
       </>
     ),
   },
   {
-    title: 'Detailed Reporting',
+    title: 'Flexible Load Profiles',
     Svg: require('@site/static/img/chart-icon.svg').default,
     description: (
       <>
-        Get comprehensive insights into latency, throughput, and error rates.
+        Constant load, staged ramp-up, spike tests, stress tests, and soak tests. Multi-region distribution included.
       </>
     ),
   },

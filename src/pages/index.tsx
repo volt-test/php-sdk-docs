@@ -18,7 +18,7 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           <span className="gradient-text">Performance Testing</span>
           <br />
-          <span style={{ color: 'var(--vt-blue-darker)' }}>Reimagined.</span>
+          <span style={{ color: 'var(--vt-blue-darker)' }}>for PHP & Laravel.</span>
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
 
@@ -44,13 +44,18 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/getting-started">
-            Get Started in 5 Minutes ⚡️
+            to="/docs/what-is-volttest">
+            What is VoltTest?
           </Link>
           <Link
             className="button button--primary button--lg"
             to="/docs/introduction">
-            View Documentation →
+            PHP SDK Docs →
+          </Link>
+          <Link
+            className="button button--primary button--lg"
+            to="/docs/laravel/laravel-installation">
+            Laravel Docs →
           </Link>
         </div>
       </div>
@@ -78,7 +83,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Volt-Test PHP SDK documentation - Integrate performance testing into your PHP applications with ease. Build and run test scenarios, monitor metrics, and optimize performance with Volt-Test's powerful tools.">
+      description="VoltTest documentation — performance testing platform for PHP and Laravel. Write tests in PHP, scale to millions of virtual users on the cloud, and analyze results in real-time.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

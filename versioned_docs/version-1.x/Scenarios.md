@@ -2,7 +2,7 @@
 id: Scenarios
 title: Scenarios
 sidebar_label: Scenarios
-sidebar_position: 7
+sidebar_position: 9
 ---
 
 # Scenarios
@@ -96,7 +96,7 @@ $scenario->setDataSourceConfiguration($dataConfig);
 So Each virtual user will get a row from the data file and use it in the scenario steps.
 Each Scenario will have its own data source configuration.
 
-For more information on data-driven testing, see the [Examples of Data-Driven Testing](/docs/category/examples) section.
+For more information on data-driven testing, see the [HTML Form Examples](/docs/Examples/html-form-examples) and [JSON API Examples](/docs/Examples/JSON-API-Examples) pages.
 
 ### Data Iteration Modes
 
