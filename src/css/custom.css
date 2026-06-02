@@ -347,39 +347,118 @@ code {
   border-right: 1px solid var(--vt-glass-border) !important;
 }
 
+.menu {
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Doc links */
 .menu__link {
   border-radius: var(--vt-radius-sm);
   transition: all var(--vt-transition-fast);
   font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.75rem;
 }
 
 .menu__link:hover {
   background: var(--vt-blue-subtle);
   color: var(--vt-blue-primary);
-  transform: translateX(4px);
+  transform: translateX(2px);
 }
 
+/* Active page link */
 .menu__link--active:not(.menu__link--sublist) {
   background: var(--vt-gradient-primary) !important;
   color: white !important;
   box-shadow: var(--vt-shadow-sm);
 }
 
-/* Active category headers — subtle highlight, not full gradient */
-.menu__link--sublist.menu__link--active {
-  background: var(--vt-blue-subtle) !important;
-  color: var(--vt-blue-dark) !important;
-  font-weight: 700;
+/* ---- Top-level category headers (VoltTest, PHP SDK, Laravel) ---- */
+.theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible {
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
 }
 
-[data-theme='dark'] .menu__link--sublist.menu__link--active {
+.theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__list-item-collapsible {
+  margin-top: 0.25rem;
+}
+
+.theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link {
+  font-family: 'Outfit', var(--ifm-font-family-base);
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  padding: 0.35rem 0.75rem;
+}
+
+.theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link:hover {
+  color: var(--vt-blue-primary);
+  background: transparent;
+  transform: none;
+}
+
+/* Active top-level category */
+.theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link--active {
+  color: var(--vt-blue-dark) !important;
+  background: transparent !important;
+  font-weight: 800;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link {
+  color: #64748b;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link:hover {
+  color: var(--vt-blue-light);
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link--active {
+  color: var(--vt-blue-light) !important;
+}
+
+/* Top-level category arrow */
+.theme-doc-sidebar-menu > .menu__list-item > .menu__list-item-collapsible > .menu__link--sublist::after {
+  background-size: 1rem 1rem;
+  opacity: 0.4;
+}
+
+/* ---- Nested subcategory headers (Examples inside PHP SDK) ---- */
+.menu__list .menu__list .menu__list-item-collapsible > .menu__link {
+  font-family: var(--ifm-font-family-base);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ifm-color-content);
+  padding: 0.4rem 0.75rem;
+}
+
+.menu__list .menu__list .menu__list-item-collapsible > .menu__link:hover {
+  background: var(--vt-blue-subtle);
+  color: var(--vt-blue-primary);
+}
+
+.menu__list .menu__list .menu__list-item-collapsible > .menu__link--active {
+  background: var(--vt-blue-subtle) !important;
+  color: var(--vt-blue-dark) !important;
+}
+
+[data-theme='dark'] .menu__list .menu__list .menu__list-item-collapsible > .menu__link--active {
   background: rgba(56, 189, 248, 0.1) !important;
   color: var(--vt-blue-light) !important;
 }
 
-/* Ensure category arrow inherits text color */
-.menu__link--sublist::after {
-  background-size: 1.25rem 1.25rem;
+/* ---- Nested list indentation ---- */
+.menu__list .menu__list {
+  padding-left: 0.5rem;
+  margin-left: 0.5rem;
+  border-left: 1px solid var(--vt-glass-border);
+}
+
+[data-theme='dark'] .menu__list .menu__list {
+  border-left-color: rgba(148, 163, 184, 0.1);
 }
 
 [data-theme='dark'] .menu__link:hover {

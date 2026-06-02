@@ -67,6 +67,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          sidebarCollapsible: true,
           lastVersion: '1.x',
           onlyIncludeVersions: ['1.x'],
           versions: {
