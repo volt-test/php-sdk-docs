@@ -59,6 +59,7 @@ const config: Config = {
               removeDuplicateHeadings: true,
           },
       ],
+      require.resolve('./src/plugins/markdown-for-agents'),
   ],
 
   presets: [
