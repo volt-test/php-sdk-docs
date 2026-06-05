@@ -15,6 +15,7 @@ The simplest approach — a fixed number of virtual users for a set duration.
 
 ```php
 $test = new VoltTest('Constant Load Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(100);
 $test->setDuration('5m');
 ```
@@ -27,6 +28,7 @@ Gradually start virtual users over a period instead of all at once. This avoids 
 
 ```php
 $test = new VoltTest('Ramped Load Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(200);
 $test->setDuration('10m');
 $test->setRampUp('30s');  // Spread user starts over 30 seconds
@@ -50,6 +52,7 @@ Stages let you define a dynamic load profile where VU count changes over time. E
 
 ```php
 $test = new VoltTest('Staged Test');
+$test->target('https://api.example.com');
 
 $test->stage('1m', 50);    // Ramp up to 50 VUs over 1 minute
 $test->stage('5m', 50);    // Hold at 50 VUs for 5 minutes
@@ -146,6 +149,7 @@ Both constant and staged profiles work identically in cloud mode:
 
 ```php
 $test = new VoltTest('Cloud Staged Test');
+$test->target('https://api.example.com');
 $test->cloud('vt_your_api_key');
 
 $test->stage('2m', 500);

@@ -20,6 +20,7 @@ Authentication is a common use case for APIs. In this example, we'll test an aut
 
 ```php
 $test = new VoltTest('API Authentication Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(10);
 
 $scenario = $test->scenario('API Authentication');
@@ -60,6 +61,7 @@ In this example, we'll test a JSON API that supports CRUD operations for managin
 
 ```php
 $test = new VoltTest('CRUD Operations Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(100);
 $test->setDuration('1m');
 
@@ -116,6 +118,7 @@ In this example, we'll test an API that requires different user data for registr
 
 ```php
 $test = new VoltTest('Data-Driven API Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(50);
 
 // Configure data source

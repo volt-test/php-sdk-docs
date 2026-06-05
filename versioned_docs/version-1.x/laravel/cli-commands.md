@@ -99,6 +99,7 @@ php artisan volttest:run [test] [options]
 
 | Option | Description | Default |
 |--------|-------------|---------|
+| `--target=` | Target base URL (overrides config `base_url`) | None |
 | `--cloud` | Run on VoltTest Cloud | false |
 | `--region=*` | Region distribution as `region:weight` (repeatable) | None |
 

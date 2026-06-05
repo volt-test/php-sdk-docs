@@ -30,6 +30,7 @@ VoltTest Cloud is currently in **closed beta**. [Sign up](https://volt-test.com/
 
 ```php
 $test = new VoltTest('My Load Test');
+$test->target('https://api.example.com');
 $test->cloud('vt_your_api_key');
 ```
 
@@ -42,6 +43,7 @@ That's it — when you call `run()`, the test will execute on VoltTest Cloud ins
 use VoltTest\VoltTest;
 
 $test = new VoltTest('API Load Test');
+$test->target('https://api.example.com');
 $test->cloud('vt_your_api_key');
 $test->setVirtualUsers(500);
 $test->setDuration('5m');
@@ -263,6 +265,7 @@ use VoltTest\Exceptions\CloudTimeoutException;
 use VoltTest\Exceptions\RunFailedException;
 
 $test = new VoltTest('Load Test');
+$test->target('https://example.com');
 $test->cloud('vt_your_api_key');
 $test->setVirtualUsers(100);
 $test->setDuration('5m');

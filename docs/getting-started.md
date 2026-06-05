@@ -21,6 +21,8 @@ use VoltTest\VoltTest;
 
 // Create a new instance of the VoltTest class
 $voltTest = new VoltTest('Name of Your test');
+// Set the target URL
+$voltTest->target('https://google.com');
 // Create a new scenario
 $scenario = $voltTest->scenario('Basic Scenario');
 // Add a step to the scenario

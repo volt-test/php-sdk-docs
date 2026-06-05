@@ -23,6 +23,8 @@ class CheckoutTest implements VoltTestCase
 {
     public function define(VoltTestManager $manager): void
     {
+        $manager->target('http://localhost:8000');
+
         $scenario = $manager->scenario('Checkout Flow');
 
         $scenario->step('Browse Products')
@@ -49,6 +51,8 @@ Use weights to control how virtual users are distributed across scenarios:
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $browse = $manager->scenario('Browse Only');
     $browse->weight(70);
     $browse->step('Home')->get('/')->expectStatus(200);
@@ -160,6 +164,8 @@ class ApiTest implements VoltTestCase
 {
     public function define(VoltTestManager $manager): void
     {
+        $manager->target('http://localhost:8000');
+
         $scenario = $manager->scenario('API Routes');
 
         $scenario->step('GET /api/users')

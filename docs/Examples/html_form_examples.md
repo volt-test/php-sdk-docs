@@ -26,6 +26,7 @@ Ex:
 
 ```php
 $test = new VoltTest('Login Form Test');
+$test->target('https://example.com');
 $test->setVirtualUsers(10);
 $scenario = $test->scenario('Login Form Test');
 
@@ -51,6 +52,7 @@ In the example above, we create a new test named "Login Form Test" and set the n
 
 ```php
 $test = new VoltTest('Registration Form');
+$test->target('https://example.com');
 $test->setVirtualUsers(100);
 $test->setDuration('5s');
 
@@ -87,6 +89,7 @@ and validates the registration success status.
 
 ```php
 $test = new VoltTest('Multi-Step Form');
+$test->target('https://example.com');
 $test->setVirtualUsers(50);
 
 $scenario = $test->scenario('Multi-Step Form');
@@ -126,6 +129,7 @@ In the example above, we create a new test named "Multi-Step Form" and set the n
 
 ```php
 $test = new VoltTest('Data-Driven Form Test');
+$test->target('https://example.com');
 $test->setVirtualUsers(10);
 
 // Configure data source
