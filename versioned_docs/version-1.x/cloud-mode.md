@@ -58,18 +58,16 @@ $scenario->step('Add to Cart')
     ->header('Authorization', 'Bearer ${token}')
     ->validateStatus('success', 200);
 
-$cloudRun = $test->run();
-
-echo "Run ID: " . $cloudRun->getRunId() . "\n";
-echo "Dashboard: " . $cloudRun->getDashboardUrl() . "\n";
-echo "Status: " . $cloudRun->getStatus() . "\n";
+$test->run();
 ```
 
-In cloud mode, `run()` returns a `CloudRun` object instead of `TestResult`. The test executes asynchronously on VoltTest's infrastructure — view live results on the dashboard.
+In cloud mode, `run()` submits the test to VoltTest Cloud. The run ID, dashboard URL, and status are automatically printed to the terminal — no need to echo them manually.
+
+`run()` also returns a `CloudRun` object for programmatic access (useful in CI/CD or automation).
 
 ## CloudRun API
 
-The `CloudRun` object provides information about your cloud test run:
+The `CloudRun` object returned by `run()` provides programmatic access to the run details:
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
@@ -218,8 +216,7 @@ $scenario = $test->scenario('Test');
 $scenario->step('Home')->get('https://example.com');
 
 try {
-    $cloudRun = $test->run();
-    echo "Dashboard: " . $cloudRun->getDashboardUrl() . "\n";
+    $test->run();
 } catch (AuthenticationException $e) {
     echo "Invalid API key: " . $e->getMessage() . "\n";
 } catch (PlanLimitException $e) {

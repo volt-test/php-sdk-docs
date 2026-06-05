@@ -29,7 +29,8 @@
           "collapsed": true,
           "items": [
             "Examples/html-form-examples",
-            "Examples/JSON-API-Examples"
+            "Examples/JSON-API-Examples",
+            "Examples/cloud-examples"
           ]
         }
       ]

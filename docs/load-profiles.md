@@ -152,8 +152,7 @@ $test->stage('2m', 500);
 $test->stage('10m', 500);
 $test->stage('2m', 0);
 
-$cloudRun = $test->run();
-echo "Dashboard: " . $cloudRun->getDashboardUrl() . "\n";
+$test->run();
 ```
 
 See the [Cloud Mode](/docs/cloud-mode) page for details on cloud execution.

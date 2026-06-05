@@ -122,11 +122,10 @@ Run tests on VoltTest's managed cloud infrastructure instead of locally:
 
 ```php
 $test->cloud('vt_your_api_key');
-$cloudRun = $test->run();
-echo "Dashboard: " . $cloudRun->getDashboardUrl() . "\n";
+$test->run();
 ```
 
-In cloud mode, `run()` returns a `CloudRun` object instead of `TestResult`. See the [Cloud Mode](/docs/cloud-mode) page for the full guide — setup, configuration, region distribution, error handling, and more.
+In cloud mode, the run ID, dashboard URL, and status are printed automatically. `run()` also returns a `CloudRun` object for programmatic access. See the [Cloud Mode](/docs/cloud-mode) page for the full guide — setup, configuration, region distribution, error handling, and more.
 
 ## Complete Example
 
