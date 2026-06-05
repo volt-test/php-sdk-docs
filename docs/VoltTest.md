@@ -79,12 +79,27 @@ Enable HTTP debug output for troubleshooting:
 $test->setHttpDebug(true);
 ```
 
-### Idle Timeout
+### Target
 
-Configure the connection idle timeout:
+Set the target URL and connection idle timeout:
 
 ```php
-$test->setTarget('30s');  // 30-second idle timeout (default)
+$test->target('https://api.example.com');            // Default idle timeout (30s)
+$test->target('https://api.example.com', '10s');     // Custom idle timeout
+```
+
+The target URL identifies the system under test. The idle timeout controls how long idle connections are kept alive.
+
+:::tip
+If you don't call `target()`, the URL defaults to `https://example.com`. Always set it to your actual target.
+:::
+
+### Idle Timeout (standalone)
+
+Set only the idle timeout without changing the URL:
+
+```php
+$test->setIdleTimeout('60s');
 ```
 
 ## Creating Scenarios
@@ -134,6 +149,7 @@ In cloud mode, the run ID, dashboard URL, and status are printed automatically. 
 use VoltTest\VoltTest;
 
 $test = new VoltTest('API Load Test');
+$test->target('https://api.example.com');
 $test->setVirtualUsers(50);
 $test->setDuration('2m');
 $test->setRampUp('10s');
@@ -163,13 +179,18 @@ printf("P95: %s\n", $result->getP95ResponseTime());
 
 | Method | Description | Default |
 |--------|-------------|---------|
+| target(string, string) | Set target URL and idle timeout | `https://example.com`, `30s` |
 | setVirtualUsers(int) | Number of concurrent VUs | 1 |
 | setDuration(string) | Total test duration | None |
 | setRampUp(string) | Ramp-up time for VUs | None |
 | stage(string, int) | Add a staged load profile step | None |
 | setHttpTimeout(string) | Per-request timeout | 30s |
 | setHttpDebug(bool) | Enable HTTP debug output | false |
-| setTarget(string) | Connection idle timeout | 30s |
+| setIdleTimeout(string) | Connection idle timeout (standalone) | 30s |
 | cloud(string) | Enable cloud execution with API key | None |
 | setCloudTimeout(int) | Cloud execution timeout in seconds | 1800 |
 | regions(array) | Region distribution for cloud runs | None |
+
+:::note Deprecated
+`setTarget(string)` is deprecated. Use `target()` to set both URL and idle timeout, or `setIdleTimeout()` to set only the timeout.
+:::

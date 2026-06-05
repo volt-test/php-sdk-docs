@@ -25,6 +25,8 @@ charlie@test.com,secret789,Charlie
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Registration with CSV Data');
 
     $scenario->dataSource('users.csv');
@@ -102,6 +104,8 @@ By default, the package validates that CSV files exist before running. Disable i
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('API with Test Data');
 
     $scenario->dataSource('api_users.csv', 'random');

@@ -16,6 +16,8 @@ Laravel forms require a CSRF token. Use the built-in `extractCsrfToken()` helper
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Login Form');
 
     $scenario->step('Get Login Page')
@@ -41,6 +43,8 @@ public function define(VoltTestManager $manager): void
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Registration');
 
     $scenario->step('Get Register Page')
@@ -64,6 +68,8 @@ public function define(VoltTestManager $manager): void
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Multi-Step Wizard');
 
     $scenario->step('Step 1: Personal Info')

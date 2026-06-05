@@ -29,6 +29,8 @@ class LoginTest implements VoltTestCase
 {
     public function define(VoltTestManager $manager): void
     {
+        $manager->target('http://localhost:8000');
+
         $scenario = $manager->scenario('Login Flow');
 
         $scenario->step('Visit Login Page')
@@ -45,6 +47,8 @@ Edit the test to add a realistic flow:
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Login Flow');
 
     $scenario->step('Get Login Page')

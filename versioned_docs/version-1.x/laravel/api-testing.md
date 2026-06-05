@@ -16,6 +16,8 @@ A typical API test: log in, extract the token, use it in subsequent requests.
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('Authenticated API');
 
     $scenario->step('Login')
@@ -48,6 +50,8 @@ public function define(VoltTestManager $manager): void
 ```php
 public function define(VoltTestManager $manager): void
 {
+    $manager->target('http://localhost:8000');
+
     $scenario = $manager->scenario('User CRUD');
 
     $scenario->step('Create User')

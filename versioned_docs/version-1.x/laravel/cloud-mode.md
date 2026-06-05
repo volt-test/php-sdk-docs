@@ -49,6 +49,7 @@ Or in `config/volttest.php`:
 ```php
 use VoltTest\Laravel\Facades\VoltTest;
 
+VoltTest::target('https://api.example.com');
 VoltTest::cloud();
 $result = VoltTest::run();
 ```
@@ -87,6 +88,7 @@ In `config/volttest.php`:
 ```php
 use VoltTest\Laravel\Facades\VoltTest;
 
+VoltTest::target('https://api.example.com');
 VoltTest::cloud();
 VoltTest::regions([
     'us-east-1' => 60,
