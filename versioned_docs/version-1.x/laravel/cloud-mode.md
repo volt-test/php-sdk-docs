@@ -95,19 +95,70 @@ VoltTest::regions([
 $result = VoltTest::run();
 ```
 
+### Available Regions
+
+#### North America
+
+| Code | Location |
+|------|----------|
+| `us-east-1` | US East (N. Virginia) |
+| `us-east-2` | US East (Ohio) |
+| `us-west-1` | US West (N. California) |
+| `us-west-2` | US West (Oregon) |
+| `ca-central-1` | Canada (Central) |
+
+#### South America
+
+| Code | Location |
+|------|----------|
+| `sa-east-1` | South America (São Paulo) |
+
+#### Europe
+
+| Code | Location |
+|------|----------|
+| `eu-west-1` | Europe (Ireland) |
+| `eu-west-2` | Europe (London) |
+| `eu-west-3` | Europe (Paris) |
+| `eu-central-1` | Europe (Frankfurt) |
+| `eu-north-1` | Europe (Stockholm) |
+
+#### Asia Pacific
+
+| Code | Location |
+|------|----------|
+| `ap-southeast-1` | Asia Pacific (Singapore) |
+| `ap-southeast-2` | Asia Pacific (Sydney) |
+| `ap-southeast-3` | Asia Pacific (Jakarta) |
+| `ap-southeast-4` | Asia Pacific (Melbourne) |
+| `ap-southeast-5` | Asia Pacific (Malaysia) |
+| `ap-south-1` | Asia Pacific (Mumbai) |
+| `ap-south-2` | Asia Pacific (Hyderabad) |
+| `ap-northeast-1` | Asia Pacific (Tokyo) |
+| `ap-northeast-2` | Asia Pacific (Seoul) |
+| `ap-northeast-3` | Asia Pacific (Osaka) |
+| `ap-east-1` | Asia Pacific (Hong Kong) |
+| `ap-east-2` | Asia Pacific (Taipei) |
+
+#### Africa
+
+| Code | Location |
+|------|----------|
+| `af-south-1` | Africa (Cape Town) |
+
+:::info
+Region availability may change. If a region is temporarily unavailable, the API will return an error with details.
+:::
+
 ## CloudRun Result
 
 In cloud mode, `run()` returns a `CloudRun` object:
 
 ```php
-$result = VoltTest::cloud()->run();
-
-echo "Run ID: " . $result->getRunId() . "\n";
-echo "Dashboard: " . $result->getDashboardUrl() . "\n";
-echo "Status: " . $result->getStatus() . "\n";
+VoltTest::cloud()->run();
 ```
 
-View live results on the dashboard link.
+The run ID, dashboard URL, and status are printed automatically. `run()` also returns a `CloudRun` object for programmatic access (useful in CI/CD).
 
 ## Conflict Handling
 
