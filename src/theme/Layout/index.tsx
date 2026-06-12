@@ -6,10 +6,17 @@ import Link from '@docusaurus/Link';
 const BANNER_ITEMS = [
     {
         icon: '☁️',
-        text: 'VoltTest Cloud is in early access',
+        text: 'VoltTest Cloud closed beta is now open',
         cta: 'Join the waitlist',
         ctaUrl: 'https://volt-test.com/register',
         accent: 'cloud',
+    },
+    {
+        icon: '📣',
+        text: 'Announcing the VoltTest Cloud closed beta',
+        cta: 'Read the announcement',
+        ctaUrl: '/blog/volt-test-cloud-closed-beta-open',
+        accent: 'blog',
     },
     {
         icon: '🛠️',
