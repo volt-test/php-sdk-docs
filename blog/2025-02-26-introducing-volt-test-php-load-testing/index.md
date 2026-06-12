@@ -186,4 +186,4 @@ Whether you're building APIs, websites, or complex applications, VoltTest gives 
 composer require volt-test/php-sdk
 ```
 
-For more examples and detailed documentation, visit [Examples Page in docs](https://php.volt-test.com/docs/category/examples).
+For more examples and detailed documentation, visit [Examples Page in docs](https://docs.volt-test.com/docs/category/examples).
