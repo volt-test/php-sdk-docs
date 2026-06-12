@@ -1,0 +1,259 @@
+---
+title: "PHP Stress Testing Tool: How to Stress Test PHP & Laravel Apps"
+description: "A practical guide to stress testing PHP applications — what to look for in a PHP stress test tool, how the top tools compare, and how to run your first stress test on plain PHP or Laravel in minutes with VoltTest."
+slug: php-stress-testing-tool
+authors: [elwafa]
+tags: ["php", "stress-test", "stress-testing", "load-testing", "performance-testing", "volt-test"]
+keywords: ["php stress test tool", "php load testing tools", "php performance testing tool", "php stress test", "php load testing", "load testing php"]
+image: "/img/php-stress-testing-tool-og.png"
+---
+import DocsWaitlistForm from '@site/src/components/DocsWaitlistForm';
+
+# How to Stress Test PHP and Laravel Applications
+
+Choosing a **PHP stress test tool** usually means a painful trade-off: the popular load testing tools all live outside PHP, so you end up writing scenarios in JavaScript, Java, or XML instead of the language your app is built in. This guide takes a different approach. We'll cover what stress testing actually means for a PHP application, what to look for in a tool, how the main options compare, and how to run your first stress test on plain PHP or Laravel in just a few minutes — without leaving your Composer workflow.
+
+<!-- truncate -->
+
+![PHP Stress Testing Tool](/img/php-stress-testing-tool-og.png)
+
+## What Is Stress Testing in PHP?
+
+Stress testing pushes your application beyond its normal operating limits to find the point where it breaks — and to see *how* it breaks. It answers questions a single request never can: How many concurrent users can your API handle before response times spike? Does the database connection pool exhaust under load? Does the app fail gracefully or fall over?
+
+It's easy to confuse the different flavors of performance testing:
+
+- **Load testing** — verify the app handles an *expected* level of traffic.
+- **Stress testing** — push *past* expected traffic to find the breaking point.
+- **Spike testing** — slam the app with a sudden surge of users.
+
+They overlap heavily and most tools (including VoltTest) handle all three. For a full breakdown of each type, see [Performance Testing Types](https://docs.volt-test.com/blog/performance-testing-types). For the rest of this article we'll use "stress testing" loosely to mean putting your PHP app under realistic concurrent load.
+
+## What to Look For in a PHP Stress Testing Tool
+
+Not every load testing tool fits a PHP team. Before picking one, check it against these criteria:
+
+- **PHP- and Composer-native** — can you write tests in PHP and install via Composer, or do you have to learn a separate language and toolchain?
+- **Realistic multi-step scenarios** — real users log in, browse, add to cart, and check out. The tool should chain requests and pass data (tokens, IDs, CSRF) between steps.
+- **Ramp-up and stages** — instantly hitting your app with 1,000 users isn't realistic. You want ramp-up, hold, spike, and ramp-down profiles.
+- **Percentile metrics** — averages hide problems. You need P95 and P99 latency, requests per second, and success/error rates.
+- **CI/CD integration** — stress tests are most valuable when they run automatically and catch regressions before they ship.
+- **Assertions** — the ability to fail a build when, say, P95 exceeds 150ms.
+- **Scale** — can it generate enough concurrent virtual users to actually stress your infrastructure?
+
+The first point is where most tools fall short for PHP developers — and where the comparison below gets interesting.
+
+## PHP Stress Testing Tools Compared
+
+Here's an honest look at the most common options for stress testing a PHP application:
+
+| Tool | Write tests in | PHP-native | Laravel-native | Multi-step scenarios | Best for |
+|---|---|---|---|---|---|
+| **VoltTest** | PHP | Yes | Yes | Yes | PHP/Laravel teams who want native tests on a fast engine |
+| k6 | JavaScript | No | No | Yes | JS-heavy teams comfortable scripting in JS |
+| JMeter | XML / GUI | No | No | Yes | Protocol breadth and complex enterprise plans |
+| Locust | Python | No | No | Yes | Python teams |
+| Apache Bench (`ab`) | CLI flags | No | No | No | Quick one-off single-endpoint checks |
+
+There's no single "best" tool — it depends on your stack:
+
+- **k6** is excellent if your team already lives in JavaScript.
+- **JMeter** is the veteran for protocol breadth and large enterprise test plans, at the cost of a heavier, GUI-driven workflow.
+- **Apache Bench** is perfect for a quick `ab -n 1000 -c 50` sanity check on a single URL, but can't model real user journeys.
+- **VoltTest** is built specifically for PHP and Laravel developers: you write tests in PHP, install with Composer, and a Go engine handles the actual load generation — so you get PHP's ergonomics with Go's concurrency. It's the only option here with a first-party Laravel package — and on Laravel it gives you the same one-line speed as `ab` (`php artisan volttest:run <url>`) *and* full multi-step scenarios when you need them.
+
+The next sections show exactly how that works — from a stress test in plain PHP, to a full Laravel scenario, to a one-line CLI test you can fire off like `ab`.
+
+## Stress Testing Plain PHP with VoltTest
+
+VoltTest's core SDK is framework-agnostic — it works with any PHP application, whether that's Symfony, WordPress, or raw PHP. Install it with Composer:
+
+```bash
+composer require volt-test/php-sdk
+```
+
+Then define a scenario and run it. Here's a minimal stress test that hits your homepage:
+
+```php title="stress-test.php"
+<?php
+require 'vendor/autoload.php';
+
+use VoltTest\VoltTest;
+
+// Create a new test
+$voltTest = new VoltTest('Homepage Stress Test');
+
+// Configure the load: 50 virtual users, ramped up over 10s, held for 1 minute
+$voltTest->setVirtualUsers(50)
+    ->setRampUp('10s')
+    ->setDuration('1m');
+
+// Define a scenario with one or more steps
+$scenario = $voltTest->scenario('Browse Homepage');
+$scenario->step('Load homepage')
+    ->get('https://your-app.test/')
+    ->validateStatus('Homepage OK', 200);
+
+// Run the test — passing true streams the live report to your console
+$voltTest->run(true);
+```
+
+Run it like any PHP script:
+
+```bash
+php stress-test.php
+```
+
+Because the heavy lifting happens in VoltTest's Go engine, a single machine can drive far more concurrent virtual users than a pure-PHP runner could — while you keep writing tests in the language you already use.
+
+## Stress Testing a Laravel Application
+
+If you're on Laravel, the dedicated package builds on the core SDK and adds Laravel-specific conveniences: Artisan commands, automatic route discovery, and CSRF/cookie handling. Install it as a dev dependency:
+
+```bash
+composer require volt-test/laravel-performance-testing --dev
+php artisan vendor:publish --tag=volttest-config
+```
+
+Scaffold a test with Artisan:
+
+```bash
+php artisan volttest:make LoginTest
+```
+
+Then define the scenario. Note `extractCsrfToken()` — the package pulls Laravel's CSRF token out of the response automatically, so you don't have to:
+
+```php title="app/VoltTests/LoginTest.php"
+<?php
+
+namespace App\VoltTests;
+
+use VoltTest\Laravel\Contracts\VoltTestCase;
+use VoltTest\Laravel\VoltTestManager;
+
+class LoginTest implements VoltTestCase
+{
+    public function define(VoltTestManager $manager): void
+    {
+        $manager->target('http://localhost:8000');
+
+        $scenario = $manager->scenario('Login Flow');
+
+        $scenario->step('Get Login Page')
+            ->get('/login')
+            ->expectStatus(200)
+            ->extractCsrfToken();
+
+        $scenario->step('Submit Login')
+            ->post('/login', [
+                'email' => 'user@example.com',
+                'password' => 'password',
+                '_token' => '${csrf_token}',
+            ])
+            ->expectStatus(302);
+    }
+}
+```
+
+The Laravel package also supports **stages** (ramp-up, hold, spike, ramp-down), **CSV data sources** for driving tests with realistic data, and a **PHPUnit integration** so your stress tests run inside your existing test suite with assertions like `assertVTP95ResponseTime()`.
+
+Two existing guides cover the Laravel workflow in depth:
+
+- [Stress Testing Laravel Applications with VoltTest (Web UI Flow)](https://docs.volt-test.com/blog/stress-testing-laravel-with-volt-test-web-ui) — a full registration-to-dashboard scenario.
+- [Load Testing Laravel Applications with PHPUnit and Volt-Test](https://docs.volt-test.com/blog/laravel-load-testing-with-phpunit) — run performance assertions inside PHPUnit and catch regressions in CI.
+
+## Quick One-Off Stress Tests from the Command Line
+
+Sometimes you don't want to write a test class at all — you just want to hammer one endpoint and see if it holds up, the way you would with `ab -n 1000 -c 50`. The Laravel package's `volttest:run` command does exactly that, with none of `ab`'s limitations.
+
+Stress test a single URL with 50 virtual users for one minute — the command auto-detects that the argument is a URL, so there's nothing else to configure:
+
+```bash
+php artisan volttest:run https://api.example.com/health --users=50 --duration=1m
+```
+
+You can also stress test authenticated `POST` endpoints with a request body inline:
+
+```bash
+php artisan volttest:run https://example.com/api/login \
+    --users=100 \
+    --method=POST \
+    --body='{"email":"test@example.com","password":"secret"}'
+```
+
+Useful flags (run `php artisan volttest:run --help` for the full list):
+
+| Flag | Purpose |
+|---|---|
+| `--users=` | Number of virtual users |
+| `--duration=` | How long to run (e.g. `30s`, `1m`, `5m`) |
+| `--method=` | HTTP method — `GET`, `POST`, `PUT`, `DELETE` |
+| `--body=` | Request body for `POST`/`PUT` |
+| `--headers=` | JSON string of request headers |
+| `--code-status=` | Expected HTTP status code (default `200`) |
+| `--stage=` | Load stages as `duration:target`, e.g. `--stage=1m:50 --stage=5m:100 --stage=1m:0` |
+| `--cloud` | Run the test on VoltTest Cloud |
+| `--stream` | Stream live output to the console |
+
+This gives you the one-liner speed of Apache Bench but with real virtual-user behavior, percentile metrics, ramp-up stages, and a path to cloud-scale execution — all from a single Artisan command.
+
+## Reading Your Stress Test Results
+
+A stress test is only useful if you can interpret the report. VoltTest output looks like this:
+
+```text
+Performance Report: Homepage Stress Test
+----------------------------------------------------------------------
+Total Requests:      5000
+Success Rate:        99.94%
+Requests/Sec (RPS):  346.19
+Avg Latency:         74.24ms
+P95 Latency:         128.71ms
+P99 Latency:         210.05ms
+----------------------------------------------------------------------
+```
+
+What to focus on:
+
+- **Success Rate** — anything below ~99% under load usually means the app is dropping requests or erroring out.
+- **Requests/Sec (RPS)** — your real-world throughput ceiling.
+- **Avg Latency** — useful, but it *hides* outliers. Don't ship on the average alone.
+- **P95 / P99 Latency** — the latency 95% and 99% of users experience. This is where real problems surface: an average of 74ms with a P99 of 2,000ms means 1 in 100 users is having a terrible time.
+
+When you stress test, watch how P95 and P99 climb as you add virtual users. The point where they spike sharply is your breaking point.
+
+## Common PHP Stress Testing Mistakes
+
+A few mistakes make stress test results misleading:
+
+- **Testing localhost** — your laptop is not production. Network, CPU, and database differ wildly. Test against a staging environment that mirrors production.
+- **No ramp-up** — slamming the app with all users at once measures a thundering herd, not real traffic. Use stages to ramp up gradually.
+- **Ignoring P99** — averages look fine while a slice of users suffer. Always read the tail latencies.
+- **Stress testing production unannounced** — you can take down a live system. Coordinate with your team, and prefer staging or a clearly-marked maintenance window.
+
+## Run Large-Scale Stress Tests with VoltTest Cloud
+
+Running stress tests from one machine works well up to a point. To simulate hundreds of thousands of concurrent users from multiple regions, you need distributed infrastructure — and that's what VoltTest Cloud provides, without you managing a single server.
+
+:::tip Closed Beta
+VoltTest Cloud is now in **closed beta**. Sign up to join the waitlist — we review and approve access in waves.
+<DocsWaitlistForm />
+:::
+
+## Conclusion
+
+Stress testing tells you how your PHP application behaves under pressure *before* your users find out the hard way. The right tool removes the friction: with VoltTest you write tests in PHP, install via Composer, run them against plain PHP or Laravel, and read real percentile metrics — all on a high-performance Go engine. Start small with a single scenario on staging, watch your P95 and P99 as load climbs, and wire the tests into CI so regressions never reach production.
+
+## Learn More
+
+- [Performance Testing Types Explained →](https://docs.volt-test.com/blog/performance-testing-types)
+- [Stress Testing Laravel with the Volt-Test Web UI →](https://docs.volt-test.com/blog/stress-testing-laravel-with-volt-test-web-ui)
+- [Load Testing Laravel with PHPUnit →](https://docs.volt-test.com/blog/laravel-load-testing-with-phpunit)
+- [Effortless Laravel Performance Testing with Volt-Test PHP SDK →](https://docs.volt-test.com/blog/effortless-laravel-performance-testing-with-volt-test-php-sdk)
+
+---
+⭐ **Star the repository on GitHub:** [volt-test/php-sdk](https://github.com/volt-test/php-sdk)
+
+💬 **Follow updates on X:** [@VoltTest](https://x.com/VT_Developers)
+
+---

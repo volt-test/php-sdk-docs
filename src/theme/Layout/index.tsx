@@ -5,15 +5,22 @@ import Link from '@docusaurus/Link';
 
 const BANNER_ITEMS = [
     {
-        icon: '⚡',
+        icon: '☁️',
         text: 'VoltTest Cloud is in early access',
         cta: 'Join the waitlist',
         ctaUrl: 'https://volt-test.com/register',
         accent: 'cloud',
     },
     {
+        icon: '🛠️',
+        text: 'New — PHP & Laravel Stress Testing Tool',
+        cta: 'Read the guide',
+        ctaUrl: '/blog/php-stress-testing-tool',
+        accent: 'blog',
+    },
+    {
         icon: '📝',
-        text: 'New — Load Testing Laravel with PHPUnit',
+        text: 'Load Testing Laravel with PHPUnit',
         cta: 'Read the guide',
         ctaUrl: '/blog/laravel-load-testing-with-phpunit',
         accent: 'blog',
