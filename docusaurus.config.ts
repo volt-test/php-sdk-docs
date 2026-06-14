@@ -53,6 +53,18 @@ const config: Config = {
           {
               generateLLMsTxt: true,
               generateLLMsFullTxt: true,
+              docsDir: [
+                  {
+                      path: 'versioned_docs/version-1.x',
+                      routeBasePath: 'docs',
+                      label: 'Documentation',
+                  },
+                  {
+                      path: 'blog',
+                      routeBasePath: 'blog',
+                      label: 'Blog',
+                  },
+              ],
               title: 'VoltTest Documentation',
               description: 'Performance testing platform for PHP and Laravel. Scale from 1K to 10M+ concurrent users.',
               excludeImports: true,
