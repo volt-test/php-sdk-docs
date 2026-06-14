@@ -425,6 +425,86 @@ code {
   opacity: 0.4;
 }
 
+/* ---- Laravel Integration — distinctive sidebar treatment ---- */
+.sidebar-laravel {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  position: relative;
+}
+
+.sidebar-laravel::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 45, 32, 0.25) 50%, transparent 100%);
+}
+
+.sidebar-laravel > .menu__list-item-collapsible {
+  background: linear-gradient(135deg, rgba(255, 45, 32, 0.05) 0%, rgba(255, 121, 63, 0.03) 100%);
+  border-radius: var(--vt-radius-sm);
+  border: 1px solid rgba(255, 45, 32, 0.1);
+  padding: 0.2rem 0;
+  transition: border-color var(--vt-transition-fast), box-shadow var(--vt-transition-fast);
+}
+
+.sidebar-laravel > .menu__list-item-collapsible:hover {
+  border-color: rgba(255, 45, 32, 0.25);
+  box-shadow: 0 2px 8px rgba(255, 45, 32, 0.08);
+}
+
+.sidebar-laravel > .menu__list-item-collapsible > .menu__link {
+  color: #e53e3e !important;
+  font-weight: 800 !important;
+}
+
+.sidebar-laravel > .menu__list-item-collapsible > .menu__link::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #FF2D20;
+  border-radius: 2px;
+  margin-right: 0.45rem;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(255, 45, 32, 0.4);
+}
+
+.sidebar-laravel > .menu__list-item-collapsible > .menu__link:hover {
+  color: #c53030 !important;
+  background: transparent !important;
+}
+
+[data-theme='dark'] .sidebar-laravel::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 100, 80, 0.3) 50%, transparent 100%);
+}
+
+[data-theme='dark'] .sidebar-laravel > .menu__list-item-collapsible {
+  background: linear-gradient(135deg, rgba(255, 45, 32, 0.08) 0%, rgba(255, 121, 63, 0.04) 100%);
+  border-color: rgba(255, 45, 32, 0.15);
+}
+
+[data-theme='dark'] .sidebar-laravel > .menu__list-item-collapsible:hover {
+  border-color: rgba(255, 100, 80, 0.3);
+  box-shadow: 0 2px 12px rgba(255, 45, 32, 0.12);
+}
+
+[data-theme='dark'] .sidebar-laravel > .menu__list-item-collapsible > .menu__link {
+  color: #fc8181 !important;
+}
+
+[data-theme='dark'] .sidebar-laravel > .menu__list-item-collapsible > .menu__link::before {
+  box-shadow: 0 0 8px rgba(255, 100, 80, 0.5);
+}
+
+[data-theme='dark'] .sidebar-laravel > .menu__list-item-collapsible > .menu__link:hover {
+  color: #feb2b2 !important;
+}
+
 /* ---- Nested subcategory headers (Examples inside PHP SDK) ---- */
 .menu__list .menu__list .menu__list-item-collapsible > .menu__link {
   font-family: var(--ifm-font-family-base);
