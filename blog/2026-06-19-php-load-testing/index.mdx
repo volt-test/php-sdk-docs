@@ -1,0 +1,438 @@
+---
+title: "PHP Load Testing: How to Load Test PHP Applications"
+description: "A practical guide to load testing PHP applications — why it matters, what tools are available, and how to write and run your first PHP load test with VoltTest in minutes."
+slug: php-load-testing
+authors: [elwafa]
+tags: ["php", "load-testing", "performance-testing", "volt-test"]
+keywords: ["php load testing", "php load testing tools", "load testing php", "php performance testing", "php performance testing tool", "performance testing php", "php load test"]
+image: "/img/php-load-testing-og.png"
+---
+import DocsWaitlistForm from '@site/src/components/DocsWaitlistForm';
+
+# How to Load Test PHP Applications
+
+PHP powers roughly 77% of all websites with a known server-side language — yet most PHP developers ship code without ever running a load test. The app works fine in development, handles a handful of users on staging, and then crumbles when real traffic arrives. Load testing catches that gap *before* your users do: it verifies that your application handles the traffic you actually expect, not just the traffic your laptop can produce.
+
+This guide covers what load testing means for PHP, how to pick the right tool, how the main options compare, and how to write and run a real multi-step load test — on plain PHP or Laravel — in minutes.
+
+<!-- truncate -->
+
+![PHP Load Testing](/img/php-load-testing-og.png)
+
+## What Is Load Testing?
+
+Load testing simulates a realistic number of concurrent users hitting your application to verify it handles normal and peak traffic without degrading. It answers questions like: Can the app serve 500 users at once without response times climbing past 200ms? Does the database connection pool hold up under sustained load? Do sessions and caches behave correctly when 100 users are active simultaneously?
+
+It's easy to mix up the different flavors of performance testing:
+
+- **Load testing** — verify the app handles an *expected* level of traffic (e.g. 500 concurrent users for 10 minutes).
+- **Stress testing** — push *past* expected traffic to find the breaking point. (For a hands-on guide, see [PHP Stress Testing Tool](/blog/php-stress-testing-tool).)
+- **Benchmarking** — measure raw throughput of a single endpoint (`ab -n 1000 -c 50`), without modeling realistic user flows.
+
+Load testing is the baseline: it tells you whether your app can handle Tuesday at 2pm, not just whether it survives Black Friday.
+
+### Why Load Testing Matters Specifically for PHP
+
+PHP's request lifecycle introduces concerns that don't exist in long-running runtimes like Node.js or Go:
+
+- **Process-per-request model** — each request bootstraps the framework. Under load, this means OPcache warming, autoloader performance, and memory limits all become bottlenecks.
+- **Database connection pooling** — PHP doesn't keep connections alive across requests by default. Under load, the connection churn can exhaust your database's `max_connections`.
+- **Session handling** — file-based sessions create lock contention when multiple requests hit the same user session. Load testing surfaces this before production does.
+- **External service timeouts** — a payment gateway that responds in 200ms under light load might take 2 seconds when 50 requests queue up. Your timeout settings need to account for this.
+
+## When Should You Load Test a PHP Application?
+
+You don't need to load test every commit. But you should run one:
+
+- **Before major releases** — especially ones that change database queries, caching, or authentication flows.
+- **After infrastructure changes** — new server, PHP version upgrade, switching from Apache to Nginx/FrankenPHP, moving to containers.
+- **Before expected traffic spikes** — product launches, marketing campaigns, seasonal peaks.
+- **When adding heavy features** — file uploads, report generation, real-time notifications, anything that changes how the app uses CPU or I/O.
+- **In CI/CD** — catch performance regressions automatically. VoltTest's [PHPUnit integration](/blog/laravel-load-testing-with-phpunit) makes this straightforward.
+
+## What to Look For in a PHP Load Testing Tool
+
+Not every load testing tool fits a PHP team. Before picking one, check it against these criteria:
+
+- **PHP-native test definition** — can you write tests in PHP and install via Composer, or do you have to learn a separate language and toolchain?
+- **Realistic multi-step scenarios** — real users don't just hit one endpoint. They browse, log in, add to cart, and check out. The tool should chain requests, pass data between steps, and handle cookies/tokens.
+- **Concurrent virtual users** — true concurrency, not sequential requests fired in a loop.
+- **Percentile metrics** — averages hide problems. You need P95 and P99 latency to see what your slowest users experience.
+- **Data-driven testing** — CSV data sources so each virtual user gets unique credentials, avoiding session contention.
+- **Scalability** — local testing for development, cloud execution for production-scale validation.
+
+## PHP Load Testing Tools Compared
+
+Here's an honest comparison of the most common options:
+
+| Feature | VoltTest | Apache JMeter | k6 (Grafana) | Locust | Apache Bench |
+|---|---|---|---|---|---|
+| Write tests in | PHP | Java / XML GUI | JavaScript | Python | CLI flags |
+| Install via | Composer | Download JVM app | Install binary | pip install | Pre-installed (most OS) |
+| Laravel integration | Native package | None | None | None | None |
+| Multi-step scenarios | Yes | Yes | Yes | Yes | No |
+| Concurrent VUs (local) | Thousands | Hundreds | Thousands | Hundreds | Limited |
+| Cloud scaling | Built-in | DIY infrastructure | Grafana Cloud | DIY infrastructure | N/A |
+| P95/P99 metrics | Yes | Yes | Yes | Yes | No |
+| Data-driven (CSV) | Yes | Yes | Yes | Yes | No |
+| CI/CD integration | PHPUnit | Jenkins plugin | CLI | CLI | CLI |
+
+- **Apache Bench (`ab`)** is useful for a quick one-off sanity check (`ab -n 1000 -c 50 http://localhost/api/health`), but it can't model user flows, extract tokens, or report percentile latencies.
+- **JMeter** is the established enterprise option with broad protocol support, but its XML/GUI workflow is a steep learning curve for a team that just wants to validate their PHP API.
+- **k6** is modern and well-documented, but you write tests in JavaScript — a context switch for a PHP team.
+- **Locust** follows the same pattern but in Python.
+- **VoltTest** is built for PHP and Laravel teams: tests are written in PHP, installed with Composer, and executed by a Go engine that handles the concurrent load generation. It's the only option with a native Laravel package, Artisan commands, and PHPUnit integration.
+
+## Load Testing a PHP Application with VoltTest
+
+Let's write a real load test. The core SDK is framework-agnostic — it works with any PHP application.
+
+### Install
+
+```bash
+composer require volt-test/php-sdk
+```
+
+### Basic Load Test — Single Endpoint
+
+Start simple: 50 concurrent users hitting an API endpoint for 30 seconds.
+
+```php title="load-test.php"
+<?php
+require 'vendor/autoload.php';
+
+use VoltTest\VoltTest;
+
+$test = new VoltTest('API Load Test');
+
+$test->setVirtualUsers(50)
+    ->setRampUp('10s')
+    ->setDuration('30s');
+
+$scenario = $test->scenario('Product Listing');
+$scenario->step('Get Products')
+    ->get('https://your-app.test/api/products')
+    ->header('Accept', 'application/json')
+    ->validateStatus('products_ok', 200);
+
+$test->run(true);
+```
+
+Run it:
+
+```bash
+php load-test.php
+```
+
+The `setRampUp('10s')` gradually adds virtual users over 10 seconds instead of slamming the app with all 50 at once — this models realistic traffic, not a thundering herd.
+
+### Multi-Step Load Test — Realistic User Flow
+
+Real users don't just hit one endpoint. Here's a load test that simulates browsing products, logging in, and placing an order:
+
+```php title="checkout-flow-test.php"
+<?php
+require 'vendor/autoload.php';
+
+use VoltTest\VoltTest;
+use VoltTest\DataSourceConfiguration;
+
+$test = new VoltTest('Checkout Flow Load Test');
+
+$test->setVirtualUsers(30)
+    ->setRampUp('15s')
+    ->setDuration('2m');
+
+$scenario = $test->scenario('Browse → Login → Checkout')
+    ->autoHandleCookies();
+
+// Each VU gets a unique user from the CSV
+$scenario->setDataSourceConfiguration(
+    new DataSourceConfiguration(__DIR__ . '/users.csv', 'unique', true)
+);
+
+// Step 1: Browse products
+$scenario->step('List Products')
+    ->get('https://your-app.test/api/products')
+    ->header('Accept', 'application/json')
+    ->extractFromJson('product_id', 'data[0].id')
+    ->validateStatus('products_loaded', 200)
+    ->setThinkTime('2s');
+
+// Step 2: Log in and extract auth token
+$scenario->step('Login')
+    ->post('https://your-app.test/api/login',
+        '{"email":"${email}","password":"${password}"}')
+    ->header('Content-Type', 'application/json')
+    ->header('Accept', 'application/json')
+    ->extractFromJson('token', 'data.token')
+    ->validateStatus('login_ok', 200)
+    ->setThinkTime('1s');
+
+// Step 3: Add product to cart
+$scenario->step('Add to Cart')
+    ->post('https://your-app.test/api/cart',
+        '{"product_id":"${product_id}","quantity":1}')
+    ->header('Authorization', 'Bearer ${token}')
+    ->header('Content-Type', 'application/json')
+    ->header('Accept', 'application/json')
+    ->validateStatus('added_to_cart', 200)
+    ->setThinkTime('2s');
+
+// Step 4: Checkout
+$scenario->step('Checkout')
+    ->post('https://your-app.test/api/checkout', '')
+    ->header('Authorization', 'Bearer ${token}')
+    ->header('Content-Type', 'application/json')
+    ->header('Accept', 'application/json')
+    ->validateStatus('checkout_ok', 201);
+
+$result = $test->run(true);
+
+echo "\n\nResults:\n";
+echo "Total Requests: " . $result->getTotalRequests() . "\n";
+echo "Success Rate: " . $result->getSuccessRate() . "%\n";
+echo "RPS: " . $result->getRequestsPerSecond() . "\n";
+echo "P95 Latency: " . $result->getP95ResponseTime() . "\n";
+echo "P99 Latency: " . $result->getP99ResponseTime() . "\n";
+```
+
+The CSV file supplies unique credentials so each virtual user logs in with different data — no session contention:
+
+```csv title="users.csv"
+email,password
+user1@example.com,password123
+user2@example.com,password123
+user3@example.com,password123
+```
+
+## Load Testing a Laravel Application
+
+If you're on Laravel, the dedicated package adds Artisan commands, automatic CSRF handling, and PHPUnit integration on top of the core SDK.
+
+### Install
+
+```bash
+composer require volt-test/laravel-performance-testing --dev
+php artisan vendor:publish --tag=volttest-config
+```
+
+### Quick Load Test from the Command Line
+
+For a fast check, test a single URL directly from Artisan — no test class needed:
+
+```bash
+php artisan volttest:run https://your-app.test/api/products --users=50 --duration=30s
+```
+
+This gives you the one-liner speed of Apache Bench but with real virtual-user concurrency and percentile metrics.
+
+### Full Scenario Load Test
+
+Scaffold a test class:
+
+```bash
+php artisan volttest:make CheckoutLoadTest
+```
+
+Define the scenario with CSRF token handling and data sources:
+
+```php title="app/VoltTests/CheckoutLoadTest.php"
+<?php
+
+namespace App\VoltTests;
+
+use VoltTest\Laravel\Contracts\VoltTestCase;
+use VoltTest\Laravel\VoltTestManager;
+
+class CheckoutLoadTest implements VoltTestCase
+{
+    public function define(VoltTestManager $manager): void
+    {
+        $manager->target('http://localhost:8000');
+
+        $scenario = $manager->scenario('Web Checkout Flow')
+            ->dataSource('users.csv', 'unique');
+
+        $scenario->step('Visit Shop')
+            ->get('/shop')
+            ->expectStatus(200)
+            ->extractCsrfToken()
+            ->thinkTime('2s');
+
+        $scenario->step('Add to Cart')
+            ->post('/cart/add', [
+                '_token' => '${csrf_token}',
+                'product_id' => 1,
+                'quantity' => 1,
+            ])
+            ->expectStatus(302)
+            ->thinkTime('1s');
+
+        $scenario->step('Checkout Page')
+            ->get('/checkout')
+            ->expectStatus(200)
+            ->extractCsrfToken()
+            ->thinkTime('3s');
+
+        $scenario->step('Place Order')
+            ->post('/checkout', [
+                '_token' => '${csrf_token}',
+                'email' => '${email}',
+            ])
+            ->expectStatus(302);
+    }
+}
+```
+
+Run it:
+
+```bash
+php artisan volttest:run CheckoutLoadTest --users=100 --duration=2m
+```
+
+### Load Testing in PHPUnit
+
+You can also run load tests inside your existing PHPUnit suite and fail the build when performance degrades:
+
+```php title="tests/Performance/CheckoutLoadTest.php"
+<?php
+namespace Tests\Performance;
+
+use App\VoltTests\CheckoutLoadTest as VoltCheckout;
+use VoltTest\Laravel\Testing\PerformanceTestCase;
+
+class CheckoutLoadTest extends PerformanceTestCase
+{
+    public function testCheckoutUnderLoad(): void
+    {
+        $result = $this->runVoltTest(new VoltCheckout, [
+            'virtual_users' => 50,
+        ]);
+
+        $this->assertVTSuccessful($result, 99);
+        $this->assertVTP95ResponseTime($result, 200);
+        $this->assertVTP99ResponseTime($result, 500);
+        $this->assertVTErrorRate($result, 1);
+    }
+}
+```
+
+```bash
+vendor/bin/phpunit --testsuite Performance
+```
+
+This catches performance regressions in CI before they reach production.
+
+## Data-Driven Load Testing with CSV
+
+Using a single test account for all virtual users creates unrealistic session contention. CSV data sources solve this:
+
+```csv title="users.csv"
+email,password,name
+alice@example.com,secret123,Alice
+bob@example.com,secret123,Bob
+carol@example.com,secret123,Carol
+dave@example.com,secret123,Dave
+```
+
+In plain PHP, configure the data source on your scenario:
+
+```php
+$scenario->setDataSourceConfiguration(
+    new DataSourceConfiguration(__DIR__ . '/users.csv', 'unique', true)
+);
+```
+
+In Laravel, use the shorthand:
+
+```php
+$scenario = $manager->scenario('User Flow')
+    ->dataSource('users.csv', 'unique');
+```
+
+The iteration mode controls how rows are assigned to virtual users:
+
+| Mode | Behavior |
+|---|---|
+| `unique` | Each VU gets a different row. VUs > rows causes an error. |
+| `sequential` | VUs cycle through rows in order, wrapping around. |
+| `random` | Each VU gets a random row on each iteration. |
+
+Use `unique` for load tests where session isolation matters (login flows), and `sequential` or `random` for read-only endpoints where overlap is fine.
+
+## Reading Your Load Test Results
+
+VoltTest output looks like this:
+
+```text
+Performance Report: Checkout Flow Load Test
+----------------------------------------------------------------------
+Total Requests:      6000
+Success Rate:        99.87%
+Requests/Sec (RPS):  198.42
+Avg Latency:         94.31ms
+P95 Latency:         182.65ms
+P99 Latency:         341.20ms
+----------------------------------------------------------------------
+```
+
+What each metric tells you:
+
+- **Success Rate** — below ~99% means the app is dropping or erroring requests under this load level. Investigate error logs.
+- **Requests/Sec (RPS)** — your real-world throughput. If your expected peak is 200 RPS and the test shows 198, you're running at the limit with no headroom.
+- **Avg Latency** — useful as a baseline, but it masks outliers. An average of 94ms is meaningless if 1% of users wait 2 seconds.
+- **P95 Latency** — the response time 95% of requests complete within. This is your primary metric for user experience.
+- **P99 Latency** — the tail. If P99 is dramatically higher than P95, you have intermittent bottlenecks — likely database lock contention, garbage collection, or external service timeouts.
+
+When load testing, run the same scenario at increasing VU counts (50, 100, 200, 500) and watch how P95 and RPS change. The point where P95 starts climbing sharply is your capacity limit.
+
+## Common PHP Load Testing Mistakes
+
+A few mistakes make load test results misleading or useless:
+
+- **Testing on localhost** — your laptop is not production. Network latency, CPU, memory, and database all differ. Test against a staging environment that mirrors production hardware.
+- **No ramp-up** — slamming the app with all users at once tests a thundering herd, not real traffic. Use `setRampUp()` to add users gradually.
+- **Single test user** — every VU sharing one login causes session lock contention, which inflates latency. Use CSV data sources with unique users.
+- **Only testing the homepage** — the homepage is often cached and fast. Test the slow paths: search, checkout, report generation, admin dashboards.
+- **Running from the same machine as the app** — the load generator and the app compete for CPU and memory, distorting results. Run the test from a separate machine.
+- **Watching averages instead of P95/P99** — an average of 80ms with P99 of 3 seconds means 1 in 100 users is having a terrible experience. Always read the tail.
+
+## Scaling Up with VoltTest Cloud
+
+Local testing is limited by your machine's resources — a laptop can drive a few hundred to a few thousand virtual users depending on the scenario complexity. For production-scale validation (10,000+ concurrent users, multiple regions), VoltTest Cloud runs your tests on managed infrastructure.
+
+The test code stays the same — just add the `--cloud` flag:
+
+```bash
+php artisan volttest:run CheckoutLoadTest --users=5000 --duration=5m --cloud
+```
+
+Or in plain PHP, enable cloud mode with your API key:
+
+```php
+$test->cloud('vt_YOUR_API_KEY');
+```
+
+:::tip Closed Beta
+VoltTest Cloud is now in **closed beta**. Sign up to join the waitlist — we review and approve access in waves.
+<DocsWaitlistForm />
+:::
+
+## Conclusion
+
+Load testing PHP applications doesn't require learning a new language or spinning up a complex infrastructure. With VoltTest, you write tests in PHP, install via Composer, and run them locally or at cloud scale. Start with a single endpoint, graduate to multi-step user flows, wire the tests into PHPUnit and CI, and monitor P95/P99 as load climbs. The goal isn't to generate impressive numbers — it's to know, with confidence, that your app handles the traffic you expect.
+
+## Learn More
+
+- [PHP Stress Testing Tool: How to Stress Test PHP & Laravel Apps →](/blog/php-stress-testing-tool)
+- [Stress Testing Laravel Applications with VoltTest (Web UI Flow) →](/blog/stress-testing-laravel-with-volt-test-web-ui)
+- [Load Testing Laravel with PHPUnit →](/blog/laravel-load-testing-with-phpunit)
+- [VoltTest PHP SDK Documentation →](https://docs.volt-test.com/docs/introduction)
+
+---
+⭐ **Star the repository on GitHub:** [volt-test/php-sdk](https://github.com/volt-test/php-sdk)
+
+💬 **Follow updates on X:** [@VoltTest](https://x.com/VT_Developers)
+
+---
