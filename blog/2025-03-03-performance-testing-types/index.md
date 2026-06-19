@@ -3,6 +3,9 @@ slug: performance-testing-types
 title: "Performance Testing: Types and Differences with Examples"
 description: "Learn about different types of performance testing with examples and differences between them. By understanding these types, you can choose the right tests to conduct based on your application's requirements."
 authors: [elwafa]
+keywords: ["performance testing types", "load testing vs stress testing", "spike testing", "soak testing"]
+tags: [performance-testing, load-testing, stress-testing]
+image: /img/volt-test-performance.png
 ---
 
 # Performance Testing: Types and Differences with Examples

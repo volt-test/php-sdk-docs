@@ -1,6 +1,7 @@
 ---
 id: laravel-api-testing
 title: API Testing
+description: "Load test Laravel JSON APIs with VoltTest — authentication flows, token extraction, CRUD operations, and header-based API testing."
 sidebar_label: API Testing
 sidebar_position: 5
 ---

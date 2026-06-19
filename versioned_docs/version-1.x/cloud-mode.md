@@ -1,6 +1,7 @@
 ---
 id: cloud-mode
 title: Cloud Mode
+description: "Run VoltTest load tests on managed cloud infrastructure. Scale to thousands of concurrent virtual users without provisioning servers."
 sidebar_label: Cloud Mode
 sidebar_position: 6
 ---

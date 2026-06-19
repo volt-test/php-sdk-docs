@@ -2,6 +2,7 @@
 sidebar_position: 1
 id: introduction
 title: Introduction
+description: "Introduction to the VoltTest PHP SDK — write performance, load, and stress tests in PHP with concurrent virtual user simulation, CSV data sources, and real-time metrics."
 sidebar_label: Introduction
 ---
 

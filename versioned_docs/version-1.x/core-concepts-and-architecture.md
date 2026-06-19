@@ -1,6 +1,7 @@
 ---
 id: core-concepts-and-architecture
 title: Core Concepts and Architecture
+description: "Understand VoltTest's architecture: PHP SDK for test definition, Go engine for high-performance load generation. Learn about scenarios, steps, virtual users, and the execution pipeline."
 sidebar_label: Core Concepts and Architecture
 sidebar_position: 4
 ---

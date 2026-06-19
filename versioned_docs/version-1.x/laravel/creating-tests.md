@@ -1,6 +1,7 @@
 ---
 id: laravel-creating-tests
 title: Creating Tests
+description: "Create VoltTest performance tests in Laravel. Define scenarios, configure virtual users, target URLs, and chain HTTP request steps."
 sidebar_label: Creating Tests
 sidebar_position: 4
 ---

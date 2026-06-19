@@ -1,6 +1,7 @@
 ---
 id: laravel-quick-start
 title: Quick Start
+description: "Get your first Laravel performance test running in 5 minutes. Generate a test, define scenarios, and run against your application."
 sidebar_label: Quick Start
 sidebar_position: 2
 ---

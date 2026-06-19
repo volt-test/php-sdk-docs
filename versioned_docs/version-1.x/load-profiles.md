@@ -1,6 +1,7 @@
 ---
 id: load-profiles
 title: Load Profiles
+description: "Configure VoltTest load profiles: constant load for steady-state testing or staged profiles for ramp-up, spike, and soak test patterns."
 sidebar_label: Load Profiles
 sidebar_position: 7
 ---

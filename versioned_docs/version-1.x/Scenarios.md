@@ -1,6 +1,7 @@
 ---
 id: Scenarios
 title: Scenarios
+description: "Define user flows with VoltTest scenarios. Configure multiple scenarios with weighted traffic distribution, think times, and sequential HTTP request steps."
 sidebar_label: Scenarios
 sidebar_position: 9
 ---

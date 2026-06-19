@@ -3,6 +3,7 @@ sidebar_label: 'HTML Form Examples'
 sidebar_position: 0
 id: html-form-examples
 title: HTML Form Examples
+description: "VoltTest examples for load testing HTML forms — login with CSRF tokens, multi-step registration flows, and data-driven form submissions."
 ---
 
 # HTML Form Examples

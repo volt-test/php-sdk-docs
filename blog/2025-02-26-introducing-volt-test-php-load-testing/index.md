@@ -10,6 +10,10 @@ tags: [stress-test,performance-testing, php, load-testing, volt-test]
 
 image: "/img/volt-test-performance.png"
 
+description: "Introducing the VoltTest PHP SDK — a load testing tool that lets PHP developers write performance tests in native PHP, powered by a Go engine."
+
+keywords: ["volt-test php sdk", "php load testing", "php performance testing", "php stress testing tool"]
+
 ---
 
 # Introducing VoltTest PHP SDK: Seamless Performance Testing for PHP Applications

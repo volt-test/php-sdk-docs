@@ -1,6 +1,7 @@
 ---
 id: laravel-web-testing
 title: Web Testing
+description: "Load test Laravel web forms with VoltTest — CSRF token extraction, session handling, multi-step form flows, and HTML response validation."
 sidebar_label: Web Testing
 sidebar_position: 6
 ---

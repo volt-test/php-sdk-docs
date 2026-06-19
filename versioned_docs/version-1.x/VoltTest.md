@@ -1,6 +1,7 @@
 ---
 id: VoltTest
 title: VoltTest
+description: "VoltTest class API reference — create tests, configure virtual users, set duration, define scenarios, and run performance tests with the PHP SDK."
 sidebar_label: VoltTest (Configuration)
 sidebar_position: 5
 ---

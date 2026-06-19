@@ -1,6 +1,7 @@
 ---
 id: laravel-configuration
 title: Configuration Reference
+description: "VoltTest Laravel configuration reference — config/volttest.php options, environment variables, cloud API settings, and default values."
 sidebar_label: Configuration
 sidebar_position: 11
 ---

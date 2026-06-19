@@ -1,6 +1,7 @@
 ---
 id: laravel-installation
 title: Installation
+description: "Install the VoltTest Laravel package via Composer. Requirements: PHP 8.2+, Laravel 11/12/13."
 sidebar_label: Installation
 sidebar_position: 1
 ---

@@ -1,6 +1,7 @@
 ---
 id: laravel-cloud-mode
 title: Cloud Execution
+description: "Run Laravel performance tests on VoltTest Cloud. Configure API keys, set regions, and execute distributed load tests from your Laravel project."
 sidebar_label: Cloud Execution
 sidebar_position: 10
 ---

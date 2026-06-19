@@ -1,6 +1,7 @@
 ---
 id: Steps
 title: Steps
+description: "Configure HTTP request steps in VoltTest scenarios — set methods, headers, bodies, extract variables from responses, and chain requests together."
 sidebar_label: Steps (HTTP Requests)
 sidebar_position: 10
 ---

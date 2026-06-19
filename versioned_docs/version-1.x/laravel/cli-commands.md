@@ -1,6 +1,7 @@
 ---
 id: laravel-cli-commands
 title: Artisan Commands
+description: "VoltTest Artisan commands — volttest:make to generate test classes, volttest:run to execute performance tests from the command line."
 sidebar_label: Artisan Commands
 sidebar_position: 3
 ---

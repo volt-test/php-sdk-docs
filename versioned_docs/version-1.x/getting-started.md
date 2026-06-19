@@ -1,6 +1,7 @@
 ---
 id: getting-started
 title: Getting Started
+description: "Write and run your first VoltTest performance test in PHP. Step-by-step guide covering test setup, virtual users, scenarios, and reading results."
 sidebar_label: Getting Started
 sidebar_position: 3
 ---

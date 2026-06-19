@@ -1,6 +1,7 @@
 ---
 id: installation
 title: Installation
+description: "Install the VoltTest PHP SDK via Composer. Requirements: PHP 8.0+, ext-json, ext-curl, ext-pcntl."
 sidebar_label: Installation
 sidebar_position: 2
 ---

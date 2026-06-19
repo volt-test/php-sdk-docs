@@ -1,6 +1,7 @@
 ---
 id: what-is-volttest
 title: What is VoltTest?
+description: "VoltTest is a cloud-based performance testing platform for PHP and Laravel. Simulate 1K to 10M+ concurrent users, run tests locally or on managed infrastructure."
 sidebar_label: What is VoltTest?
 sidebar_position: 1
 ---

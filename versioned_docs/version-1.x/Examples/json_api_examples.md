@@ -2,6 +2,7 @@
 sidebar_position: 1
 id: JSON-API-Examples
 title: JSON API Examples
+description: "VoltTest examples for load testing JSON APIs — authentication flows, CRUD operations, token extraction, and CSV-driven data testing."
 ---
 
 # JSON API Examples

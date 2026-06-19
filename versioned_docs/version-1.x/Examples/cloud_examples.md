@@ -3,6 +3,7 @@ sidebar_label: 'Cloud Examples'
 sidebar_position: 2
 id: cloud-examples
 title: Cloud Examples
+description: "VoltTest Cloud examples — basic cloud tests, staged load profiles, multi-region distribution, weighted multi-scenario runs, and error handling."
 ---
 
 # Cloud Examples

@@ -1,6 +1,7 @@
 ---
 id: Result
 title: Result
+description: "Read VoltTest test results: success rates, response times (min, max, median, p95, p99), throughput, and per-request metrics."
 sidebar_label: Results
 sidebar_position: 11
 ---

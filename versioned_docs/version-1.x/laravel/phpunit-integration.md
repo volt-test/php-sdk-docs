@@ -1,6 +1,7 @@
 ---
 id: laravel-phpunit-integration
 title: PHPUnit Integration
+description: "Run VoltTest performance tests inside PHPUnit. Extend PerformanceTestCase for automatic server management, load execution, and performance assertions."
 sidebar_label: PHPUnit Integration
 sidebar_position: 8
 ---

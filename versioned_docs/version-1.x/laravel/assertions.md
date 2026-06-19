@@ -1,6 +1,7 @@
 ---
 id: laravel-assertions
 title: Performance Assertions
+description: "VoltTest performance assertions for PHPUnit — assert success rates, response time thresholds (p95, p99), throughput minimums, and error rate limits."
 sidebar_label: Assertions
 sidebar_position: 9
 ---
